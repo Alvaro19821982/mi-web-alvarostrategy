@@ -1,0 +1,50 @@
+name: Build & Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]      # cambia si tu rama principal se llama de otra forma
+  workflow_dispatch:      # botón “Run workflow” en Actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) Sacar el código
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2) Instalar Node y cachear node_modules
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # 3) Instalar dependencias
+      - name: Install deps
+        run: npm ci
+
+      # 4) Compilar tu Vite + React
+      - name: Build
+        run: npm run build   # => genera ./dist
+
+      # 5) Subir sólo ./dist al FTP
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5   # acción oficial :contentReference[oaicite:0]{index=0}
+        with:
+          server:   ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+
+          protocol: ftps          # o 'ftp' si tu plan no soporta FTPS
+          port: 21
+
+          local-dir:  ./dist/     # lo que acabas de compilar
+          server-dir: public_html/  # carpeta raíz del sitio en Hostinger
+
+          # opcionales útiles:
+          # exclude: |
+          #   **/.git*
+          #   **/node_modules/**
+          # log-level: standard
