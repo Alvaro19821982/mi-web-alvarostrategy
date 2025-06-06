@@ -1,0 +1,12 @@
+# robots.txt para alvarostrategy.com
+# Fecha de creación: 2025-06-06
+
+User-agent: *
+Allow: /
+
+# Disallow para páginas de categorías y tags del blog (ya que tienen noindex)
+Disallow: /blog/categoria/
+Disallow: /blog/tag/
+
+# Especificar la ubicación del sitemap
+Sitemap: https://alvarostrategy.com/sitemap.xml

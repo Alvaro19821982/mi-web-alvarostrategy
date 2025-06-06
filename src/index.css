@@ -1,0 +1,79 @@
+/* ELIMINA la siguiente línea: */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ... (tus variables CSS se mantienen igual) ... */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    /* ... (resto de variables) ... */
+  }
+
+  .dark {
+    /* ... (tus variables dark se mantienen igual) ... */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    /* ... (resto de variables dark) ... */
+  }
+}
+
+@layer base {
+  html,
+  body,
+  #root { /* Asegura que el div raíz también tenga altura completa */
+    height: 100%;
+    margin: 0; /* Reseteo común */
+    padding: 0; /* Reseteo común */
+  }
+
+  /* Opcional: Si quieres que el scroll sea más suave */
+  /* html { 
+    scroll-behavior: smooth;
+  } */
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif; /* Aplicar Poppins como fuente por defecto */
+    /* Tailwind también aplica un anti-aliasing por defecto, pero puedes asegurarlo: */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box; /* Buena práctica para el modelo de caja */
+  }
+}
