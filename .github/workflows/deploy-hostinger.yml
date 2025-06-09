@@ -41,7 +41,8 @@ jobs:
           port: 21
 
           local-dir:  ./dist/     # lo que acabas de compilar
-          server-dir: public_html/  # carpeta raíz del sitio en Hostinger
+          server-dir: public_html/
+          dangerous-clean-slate: true  # carpeta raíz del sitio en Hostinger
 
           # opcionales útiles:
           # exclude: |
