@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef, Suspense, lazy } from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 // Shadcn UI and other providers
 import { Toaster } from "@/components/ui/toaster";
@@ -16,12 +17,11 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 
-
 // Iconos
 import {
   ArrowRight, Menu, X, TrendingUp, Mail, Phone, Briefcase, Award, Send, BookOpen,
   Home, Cog, User, Lightbulb, SearchCheck, Cpu, BookUser,
-  CheckSquare, DollarSign, Heart, Rocket, Users, FileText, Loader2 // Añadido Loader2 para el fallback
+  CheckSquare, DollarSign, Heart, Rocket, Users, FileText, Loader2
 } from "lucide-react";
 
 // --- PÁGINAS (Lazy Loaded) ---
@@ -34,12 +34,10 @@ const BlogCategoriaPage = lazy(() => import('./pages/BlogCategoriaPage'));
 const BlogTagPage = lazy(() => import('./pages/BlogTagPage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Servicios = lazy(() => import('./pages/Servicios'));
-// const CasosDeExito = lazy(() => import('./pages/CasosDeExito')); // Comentado
 const Contacto = lazy(() => import('./pages/Contacto'));
 const EstrategiaDigitalIntegral = lazy(() => import('./pages/servicios/EstrategiaDigitalIntegral'));
 const ConsultoriaSeo = lazy(() => import('./pages/servicios/ConsultoriaSeo'));
 const ConsultoriaIa = lazy(() => import('./pages/servicios/ConsultoriaIa'));
-// const Formacion = lazy(() => import('./pages/servicios/Formacion')); // Comentado
 const ProductoMarca = lazy(() => import('./pages/mi-metodo/ProductoMarca'));
 const Adquisicion = lazy(() => import('./pages/mi-metodo/Adquisicion'));
 const Conversion = lazy(() => import('./pages/mi-metodo/Conversion'));
@@ -51,13 +49,16 @@ const PoliticaPrivacidad = lazy(() => import('./pages/legal/PoliticaPrivacidad')
 const PoliticaCookies = lazy(() => import('./pages/legal/PoliticaCookies'));
 
 // Import del ErrorBoundary
-import ErrorBoundary from './components/ui/ErrorBoundary'; 
+import ErrorBoundary from './components/ui/ErrorBoundary';
 
-// Import del Banner de Cookies con React.lazy (ya estaba)
+// Import del Banner de Cookies con React.lazy
 const CookieConsentBanner = lazy(() => import('./components/ui/CookieConsentBanner'));
 
-
 const queryClient = new QueryClient();
+
+// --- IDs DE SEGUIMIENTO ---
+const GA_MEASUREMENT_ID = "G-KF8SBMFJMQ"; // Tu ID de Google Analytics
+const CLARITY_PROJECT_ID = "rwqvg37hja"; // <-- ID de Clarity de tu imagen
 
 // Un componente simple de fallback para Suspense
 const LoadingFallback = () => (
@@ -79,7 +80,6 @@ interface SubNavItem {
   description: string;
   icon: React.ReactElement;
 }
-
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -113,8 +113,6 @@ ListItem.displayName = "ListItem"
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
-  // location y navRef no se usan en este componente tal como está, pero los dejo por si los necesitas más adelante
-  // const location = useLocation(); 
   const navRef = useRef<HTMLElement>(null);
 
   const toggleMobileMenu = useCallback(() => {
@@ -143,12 +141,12 @@ const Navigation = () => {
       setMobileMenuOpen(false);
     }
     setTimeout(() => {
-      if (sectionId && path === '/') { 
+      if (sectionId && path === '/') {
         navigate(path, { state: { scrollTo: sectionId } });
       } else {
-        navigate(path); 
+        navigate(path);
       }
-    }, mobileMenuOpen ? 100 : 0); 
+    }, mobileMenuOpen ? 100 : 0);
   };
 
   const mainNavItems: NavItem[] = [
@@ -171,7 +169,6 @@ const Navigation = () => {
     { title: "Fase R: Recurrencia", href: "/mi-metodo/recurrencia", description: "Fidelizando para un crecimiento sostenido.", icon: <Heart/> },
     { title: "Fase E: Escalabilidad", href: "/mi-metodo/escalabilidad", description: "Creciendo con beneficios y sin morir.", icon: <Rocket/> },
   ];
-
 
   return (
     <nav ref={navRef} className="bg-gradient-to-r from-blue-700 to-indigo-700 text-white shadow-lg border-b border-blue-800/50 sticky top-0 z-[1000] transition-all duration-300">
@@ -287,11 +284,10 @@ const Navigation = () => {
                     <span className="absolute bottom-[-2px] left-0 w-0 h-0.5 bg-sky-300 transition-all duration-300 group-hover/menuitem:w-full"></span>
                   </NavigationMenuItem>
                 ))}
-
               </NavigationMenuList>
             </NavigationMenu>
           </div>
-          
+
           <div className="flex items-center ml-auto flex-shrink-0">
             <div className="hidden lg:flex items-center">
               <Button
@@ -312,7 +308,6 @@ const Navigation = () => {
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
-
         </div>
 
         {mobileMenuOpen && (
@@ -381,8 +376,6 @@ const Navigation = () => {
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const navigate = useNavigate();
-  // location no se usa aquí, pero lo dejo por si acaso
-  // const location = useLocation(); 
 
   const handleFooterNavigate = (path: string, sectionId?: string) => {
     if (sectionId && path === '/') {
@@ -470,64 +463,157 @@ const ScrollToSectionOnLoad = () => {
         }
       }, 100);
       return () => clearTimeout(timer);
-    } else if (!location.hash) { 
+    } else if (!location.hash) {
       window.scrollTo(0, 0);
     }
-  }, [location.pathname, location.search, location.hash, location.state, navigate]); // location.state y navigate también son dependencias
+  }, [location.pathname, location.search, location.hash, location.state, navigate]);
 
   return null;
 };
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <SonnerToaster />
-      <>
-        <ScrollToSectionOnLoad />
-        <Navigation />
-        <main className="flex-grow">
-          <Suspense fallback={<LoadingFallback />}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/servicios" element={<Servicios />} />
-              <Route path="/mi-metodo" element={<MiMetodo />} />
-              <Route path="/quien-soy" element={<QuienSoy />} />
-              <Route path="/contacto" element={<Contacto />} />
-              
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/categoria/:categoriaSlug" element={<BlogCategoriaPage />} />
-              <Route path="/blog/tag/:tagSlug" element={<BlogTagPage />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
+const trackPageViewGA4 = (path: string) => {
+  // @ts-ignore
+  if (typeof window.gtag === 'function') {
+    // @ts-ignore
+    window.gtag('config', GA_MEASUREMENT_ID, {
+      page_path: path,
+    });
+    // console.log(`GA4 Pageview tracked: ${path}`);
+  }
+};
 
-              <Route path="/servicios/estrategia-digital-integral" element={<EstrategiaDigitalIntegral />} />
-              <Route path="/servicios/consultoria-seo" element={<ConsultoriaSeo />} />
-              <Route path="/servicios/consultoria-ia" element={<ConsultoriaIa />} />
-              
-              <Route path="/mi-metodo/producto-marca" element={<ProductoMarca />} />
-              <Route path="/mi-metodo/adquisicion" element={<Adquisicion />} />
-              <Route path="/mi-metodo/conversion" element={<Conversion />} />
-              <Route path="/mi-metodo/progresion" element={<Progresion />} />
-              <Route path="/mi-metodo/recurrencia" element={<Recurrencia />} />
-              <Route path="/mi-metodo/escalabilidad" element={<Escalabilidad />} />
+// Define el tipo para el objeto de consentimiento esperado por onConsentChange
+type ConsentObject = {
+  analytics?: boolean;
+  marketing?: boolean; // Ejemplo si tuvieras más categorías
+  [key: string]: boolean | undefined;
+};
 
-              <Route path="/aviso-legal" element={<AvisoLegal />} />
-              <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
-              <Route path="/politica-cookies" element={<PoliticaCookies />} />
+const App = () => {
+  const location = useLocation();
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </main>
-        <Footer />
-        <ErrorBoundary fallback={null}> {/* Puedes poner un fallback más elaborado si quieres */}
-          <Suspense fallback={null}> {/* Fallback para el banner de cookies si tarda */}
-            <CookieConsentBanner />
-          </Suspense>
-        </ErrorBoundary>
-      </>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+  useEffect(() => {
+    // @ts-ignore
+    if (typeof window.gtag === 'function' && cookieConsent.analytics) { // Solo rastrear si hay consentimiento
+      trackPageViewGA4(location.pathname + location.search);
+    }
+  }, [location, /* cookieConsent.analytics */]); // Añadir cookieConsent.analytics como dependencia si quieres que se re-evalúe al cambiar consentimiento
+
+  // El estado cookieConsent se inicializa en false y se actualiza desde localStorage
+  // o a través de la interacción con CookieConsentBanner
+  const [cookieConsent, setCookieConsent] = useState<ConsentObject>({
+    analytics: false,
+  });
+
+  useEffect(() => {
+    const savedConsent = localStorage.getItem('cookieConsent');
+    if (savedConsent) {
+      try {
+        const parsedConsent = JSON.parse(savedConsent);
+        setCookieConsent(parsedConsent);
+      } catch (error) {
+        console.error("Error parsing cookie consent from localStorage", error);
+      }
+    }
+  }, []);
+
+  const handleConsentChangeCallback = useCallback((newConsent: ConsentObject) => {
+    localStorage.setItem('cookieConsent', JSON.stringify(newConsent));
+    setCookieConsent(newConsent);
+    // Si el consentimiento para analytics se acaba de dar, y GA no se cargó antes,
+    // podríamos necesitar re-evaluar el useEffect de location o tener una lógica
+    // para enviar el pageview actual si gtag ya está disponible.
+    // Sin embargo, la lógica actual de Helmet debería manejar la carga del script
+    // cuando cookieConsent.analytics cambie a true, y ese script se auto-configura.
+    // El trackPageViewGA4 en el useEffect de location se encargará de las navegaciones *después* de que GA esté cargado.
+  }, []);
+
+
+  return (
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <SonnerToaster />
+          <>
+            <Helmet>
+              {/* Carga condicional de scripts basada en el consentimiento */}
+              {cookieConsent.analytics && (
+                <>
+                  {/* === GOOGLE ANALYTICS (gtag.js) === */}
+                  <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+                  <script>
+                    {`
+                      window.dataLayer = window.dataLayer || [];
+                      function gtag(){dataLayer.push(arguments);}
+                      gtag('js', new Date());
+                      gtag('config', '${GA_MEASUREMENT_ID}');
+                    `}
+                  </script>
+                  {/* ==================================== */}
+
+                  {/* === MICROSOFT CLARITY === */}
+                  {/* CLARITY_PROJECT_ID ya tiene tu ID "rwqvg37hja" */}
+                  <script type="text/javascript">
+                    {`
+                      (function(c,l,a,r,i,t,y){
+                          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                      })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");
+                    `}
+                  </script>
+                  {/* ======================== */}
+                </>
+              )}
+            </Helmet>
+
+            <ScrollToSectionOnLoad />
+            <Navigation />
+            <main className="flex-grow">
+              <Suspense fallback={<LoadingFallback />}>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/servicios" element={<Servicios />} />
+                  <Route path="/mi-metodo" element={<MiMetodo />} />
+                  <Route path="/quien-soy" element={<QuienSoy />} />
+                  <Route path="/contacto" element={<Contacto />} />
+
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/categoria/:categoriaSlug" element={<BlogCategoriaPage />} />
+                  <Route path="/blog/tag/:tagSlug" element={<BlogTagPage />} />
+                  <Route path="/blog/:slug" element={<BlogPost />} />
+
+                  <Route path="/servicios/estrategia-digital-integral" element={<EstrategiaDigitalIntegral />} />
+                  <Route path="/servicios/consultoria-seo" element={<ConsultoriaSeo />} />
+                  <Route path="/servicios/consultoria-ia" element={<ConsultoriaIa />} />
+
+                  <Route path="/mi-metodo/producto-marca" element={<ProductoMarca />} />
+                  <Route path="/mi-metodo/adquisicion" element={<Adquisicion />} />
+                  <Route path="/mi-metodo/conversion" element={<Conversion />} />
+                  <Route path="/mi-metodo/progresion" element={<Progresion />} />
+                  <Route path="/mi-metodo/recurrencia" element={<Recurrencia />} />
+                  <Route path="/mi-metodo/escalabilidad" element={<Escalabilidad />} />
+
+                  <Route path="/aviso-legal" element={<AvisoLegal />} />
+                  <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
+                  <Route path="/politica-cookies" element={<PoliticaCookies />} />
+
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </main>
+            <Footer />
+            <ErrorBoundary fallback={<div>Algo salió mal. Por favor, recarga la página.</div>}>
+              <Suspense fallback={null}>
+                <CookieConsentBanner onConsentChange={handleConsentChangeCallback} />
+              </Suspense>
+            </ErrorBoundary>
+          </>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
+  );
+};
 
 export default App;
