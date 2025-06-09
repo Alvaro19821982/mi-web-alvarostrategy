@@ -71,7 +71,7 @@ const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({ onConsentChan
         marginRight: "20px" // Espacio entre texto y botón
       }}
       expires={180} // 6 meses
-      // debug={true} // Quitar para producción, útil para desarrollo para que siempre aparezca
+      debug={true} // Quitar para producción, útil para desarrollo para que siempre aparezca
       onAccept={handleAccept}
       // Si quisieras un botón de rechazar y manejar esa lógica:
       // enableDeclineButton
