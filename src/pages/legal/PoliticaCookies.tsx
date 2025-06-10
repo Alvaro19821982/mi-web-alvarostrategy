@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Cookies } from 'react-cookie-consent'; // Para gestionar la cookie de consentimiento
+import { Cookies } from 'react-cookie-consent';
 import { cn } from "@/lib/utils";
 
 const fadeInUp: Variants = {
@@ -29,7 +29,10 @@ interface CookieInfo {
   type: 'Necesaria' | 'Analítica' | 'Marketing' | 'Funcional' | 'Preferencias';
 }
 
-// TODO: USER: Reemplazar "YOUR_GA_ID" con tu ID real de Google Analytics
+// === ID de Google Analytics ===
+// Definido aquí para ser usado en la tabla y en la función de borrado
+const GA_MEASUREMENT_ID = "G-KF8SBMFJMQ"; 
+
 const siteCookies: CookieInfo[] = [
   { 
     name: "alvaroStrategyCookieConsent", 
@@ -46,7 +49,7 @@ const siteCookies: CookieInfo[] = [
     type: "Analítica"
   },
   { 
-    name: "_ga_YOUR_GA_ID", // EJEMPLO: _ga_G-XXXXXXXXXX
+    name: `_ga_${GA_MEASUREMENT_ID}`, // <<< MODIFICADO: Usando el ID real
     provider: "Google Analytics (Terceros)", 
     purpose: "Se usa para persistir el estado de la sesión.", 
     duration: "2 años",
@@ -65,29 +68,33 @@ const PoliticaCookies = () => {
 
   useEffect(() => {
     const consent = Cookies.get("alvaroStrategyCookieConsent");
-    // El valor de la cookie es una string "true", "false" o undefined.
-    // El banner parece establecerla a "true" o "false" literalmente.
     if (consent === "true") {
         setConsentGiven(true);
     } else if (consent === "false") {
         setConsentGiven(false);
     } else {
-        setConsentGiven(undefined); // O false si quieres asumir no consentimiento por defecto
+        setConsentGiven(undefined);
     }
   }, []);
 
+  // <<< FUNCIÓN MODIFICADA >>>
   const handleWithdrawConsent = () => {
-    // Esta función idealmente debería interactuar con el mismo sistema que tu CookieConsentBanner.
-    // Por ahora, simplemente eliminamos la cookie de ejemplo y recargamos.
-    // La lógica real dependerá de cómo tu CookieConsentBanner gestione las preferencias.
+    // 1. Elimina la cookie de la librería que recuerda la decisión (true/false)
     Cookies.remove("alvaroStrategyCookieConsent", { path: '/' }); 
-    // También podrías querer eliminar otras cookies analíticas o de marketing aquí
-    Cookies.remove("_ga", { path: '/', domain: `.${window.location.hostname.replace(/^www\./, '')}` }); // Eliminar para el dominio
-    Cookies.remove(`_ga_YOUR_GA_ID`, { path: '/', domain: `.${window.location.hostname.replace(/^www\./, '')}` }); // Reemplaza YOUR_GA_ID
 
+    // 2. ELIMINA EL ESTADO GUARDADO EN LOCALSTORAGE (¡CAMBIO CLAVE!)
+    // Esto asegura que App.tsx no crea que todavía hay consentimiento.
+    localStorage.removeItem('cookieConsent');
+
+    // 3. Intenta eliminar las cookies de tracking específicas
+    const cookieDomain = `.${window.location.hostname.replace(/^www\./, '')}`;
+    Cookies.remove("_ga", { path: '/', domain: cookieDomain });
+    Cookies.remove(`_ga_${GA_MEASUREMENT_ID}`, { path: '/', domain: cookieDomain }); // Usando el ID real
+
+    // 4. Actualiza la UI y recarga para mostrar el banner
     setConsentGiven(false);
-    alert("Tu consentimiento para las cookies ha sido retirado o modificado. El banner de cookies volverá a aparecer para que puedas actualizar tus preferencias (puede que necesites recargar la página o borrar la caché del navegador para ver el cambio inmediatamente).");
-    window.location.reload(); // Forzar recarga para que el banner (si está bien configurado) reaparezca.
+    alert("Tu consentimiento para las cookies ha sido retirado. El banner volverá a aparecer para que puedas actualizar tus preferencias.");
+    window.location.reload(); 
   };
   
   const schemaMarkup = {
@@ -104,8 +111,8 @@ const PoliticaCookies = () => {
       ]
     },
      "mainEntity": { 
-        "@type": "Article", // Usar Article o WebPageElement puede ser adecuado para contenido legal
-        "headline": "Política de cookies de AlvaroStrategy.com", // Corregido mayúscula
+        "@type": "Article",
+        "headline": "Política de cookies de AlvaroStrategy.com",
         "author": {
             "@type": "Person",
             "name": "Álvaro Fernández de Celis",
