@@ -6,7 +6,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-// AÑADIDO: La función slugify que faltaba y debe ser exportada
 export function slugify(text: string): string {
   if (!text) return '';
   

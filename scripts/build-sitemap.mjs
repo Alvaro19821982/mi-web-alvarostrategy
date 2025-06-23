@@ -4,188 +4,152 @@ import path from 'path';
 
 // --- CONFIGURACIÓN ---
 const BASE_URL = 'https://alvarostrategy.com';
-const PUBLIC_DIR = path.join(process.cwd(), 'public');
-const SITEMAP_PATH = path.join(PUBLIC_DIR, 'sitemap.xml');
-const BLOG_DATA_PATH = path.join(PUBLIC_DIR, 'blog-data.json');
-const ROUTES_CONFIG_PATH = path.join(process.cwd(), 'src', 'routes.ts');
-const SUPPORTED_LANGS = ['es', 'en', 'fr'];
-// --------------------
+// Coloca la ruta a tu archivo blog-data.json
+const BLOG_DATA_PATH = path.resolve(process.cwd(), 'public/blog-data.json');
+// La salida será en la carpeta public, para que Vite lo copie a la raíz del build
+const SITEMAP_OUTPUT_PATH = path.resolve(process.cwd(), 'public/sitemap.xml');
 
+// Replicamos la configuración de rutas y slugs para poder usarla en Node.js
+// Es crucial que esto se mantenga sincronizado con tu `src/routes.ts`
+const routesConfig = [
+    { key: 'services', paths: { es: 'servicios', en: 'services', fr: 'services' } },
+    { key: 'method', paths: { es: 'mi-metodo', en: 'my-method', fr: 'ma-methode' } },
+    { key: 'whoAmI', paths: { es: 'quien-soy', en: 'about-me', fr: 'qui-suis-je' } },
+    { key: 'contact', paths: { es: 'contacto', en: 'contact', fr: 'contact' } },
+    { key: 'blog', paths: { es: 'blog', en: 'blog', fr: 'blog' } },
+    { key: 'blogPost', dynamic: 'slug', paths: { es: 'blog/:slug', en: 'blog/:slug', fr: 'blog/:slug' } },
+    { key: 'blogCategory', dynamic: 'categoriaSlug', paths: { es: 'categoria/:categoriaSlug', en: 'category/:categoriaSlug', fr: 'categorie/:categoriaSlug' } },
+    { key: 'blogTag', dynamic: 'tagSlug', paths: { es: 'etiqueta/:tagSlug', en: 'tag/:tagSlug', fr: 'tag/:tagSlug' } },
+    { key: 'service_edi', paths: { es: 'servicios/estrategia-digital-integral', en: 'services/comprehensive-digital-strategy', fr: 'services/strategie-digitale-globale' } },
+    { key: 'service_seo', paths: { es: 'servicios/consultoria-seo', en: 'services/seo-consulting', fr: 'services/consultation-seo' } },
+    { key: 'service_ia', paths: { es: 'servicios/consultoria-ia', en: 'services/ai-consulting', fr: 'services/consultation-ia' } },
+    { key: 'method_brand', paths: { es: 'mi-metodo/producto-marca', en: 'my-method/product-brand', fr: 'ma-methode/produit-marque' } },
+    { key: 'method_acquisition', paths: { es: 'mi-metodo/adquisicion', en: 'my-method/acquisition', fr: 'ma-methode/acquisition' } },
+    { key: 'method_conversion', paths: { es: 'mi-metodo/conversion', en: 'my-method/conversion', fr: 'ma-methode/conversion' } },
+    { key: 'method_progression', paths: { es: 'mi-metodo/progresion', en: 'my-method/progression', fr: 'ma-methode/progression' } },
+    { key: 'method_recurrence', paths: { es: 'mi-metodo/recurrencia', en: 'my-method/recurrence', fr: 'ma-methode/recurrence' } },
+    { key: 'method_scalability', paths: { es: 'mi-metodo/escalabilidad', en: 'my-method/scalability', fr: 'ma-methode/scalabilite' } },
+    { key: 'legal_notice', paths: { es: 'aviso-legal', en: 'legal-notice', fr: 'mentions-legales' } },
+    { key: 'privacy_policy', paths: { es: 'politica-de-privacidad', en: 'privacy-policy', fr: 'politique-de-confidentialite' } },
+    { key: 'cookies_policy', paths: { es: 'politica-de-cookies', en: 'cookies-policy', fr: 'politique-de-cookies' } },
+];
+const supportedLngs = ['es', 'en', 'fr'];
+
+// --- HELPERS ---
 const slugify = (text) => {
-  if (!text) return '';
-  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
-  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
-  const p = new RegExp(a.split('').join('|'), 'g')
-  return text.toString().toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(p, c => b.charAt(a.indexOf(c)))
-    .replace(/&/g, '-and-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/\-\-+/g, '-')
-    .replace(/^-+/, '')
-    .replace(/-+$/, '');
+    return text.toString().toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Quitar acentos
+        .replace(/\s+/g, '-') // Reemplazar espacios con -
+        .replace(/[^\w-]+/g, '') // Quitar caracteres no alfanuméricos
+        .replace(/--+/g, '-') // Reemplazar múltiples - con uno solo
+        .replace(/^-+/, '').replace(/-+$/, ''); // Quitar - del principio y final
 };
 
-const readJSONFile = (filePath) => {
-  const data = fs.readFileSync(filePath, 'utf-8');
-  return JSON.parse(data);
-};
+// --- LÓGICA PRINCIPAL ---
+async function generateSitemap() {
+    console.log("Generando sitemap...");
+    const blogData = JSON.parse(fs.readFileSync(BLOG_DATA_PATH, 'utf-8'));
 
-// CORRECCIÓN: Función mejorada para leer el archivo .ts y extraer el array de configuración
-const getRoutesConfig = () => {
-  const fileContent = fs.readFileSync(ROUTES_CONFIG_PATH, 'utf-8');
-  
-  // Expresión regular para encontrar el array, ignorando los imports y el tipado.
-  // Busca 'export const routesConfig = [' y captura todo hasta el '];' final.
-  const match = fileContent.match(/export const routesConfig\s*=\s*(\[[\s\S]*?\]);/);
-  
-  if (!match || !match[1]) {
-    throw new Error('No se pudo encontrar o parsear routesConfig en routes.ts');
-  }
+    // Objeto para almacenar URLs por clave única (para agrupar traducciones)
+    const urls = {};
 
-  // Ahora, debemos procesar el texto capturado para que sea un JSON válido.
-  // Esto implica quitar los nombres de los componentes (ej. 'component: MiMetodo,')
-  // ya que no son válidos en JSON y no los necesitamos en este script.
-  let configString = match[1];
-  configString = configString.replace(/component:\s*\w+,/g, '');
-  
-  // Convertimos las comillas simples a dobles para que sea JSON válido
-  configString = configString.replace(/'/g, '"');
-
-  // Usamos una función constructora para evaluar el string de forma segura
-  return new Function(`return ${configString}`)();
-};
-
-
-const generateSitemap = () => {
-  console.log('🚀 Generando sitemap...');
-  
-  const blogData = readJSONFile(BLOG_DATA_PATH);
-  const routesConfig = getRoutesConfig(); // Usamos la nueva función mejorada
-
-  const today = new Date().toISOString().split('T')[0];
-
-  const urlMap = new Map();
-
-  const addUrl = (key, lang, loc, lastmod = today) => {
-    if (!urlMap.has(key)) {
-      urlMap.set(key, { lastmod, alternates: {} });
-    }
-    const entry = urlMap.get(key);
-    entry.alternates[lang] = loc;
-    if (new Date(lastmod) > new Date(entry.lastmod)) {
-      entry.lastmod = lastmod;
-    }
-  };
-
-  // 1. Páginas estáticas (incluida la raíz para hreflang x-default)
-  addUrl('home', 'es', `${BASE_URL}/es`);
-  addUrl('home', 'en', `${BASE_URL}/en`);
-  addUrl('home', 'fr', `${BASE_URL}/fr`);
-  
-  routesConfig.filter(r => r.paths && !Object.values(r.paths).some(p => p.includes(':')) && r.key !== 'home').forEach(route => {
-    SUPPORTED_LANGS.forEach(lang => {
-        const pathSegment = route.paths[lang];
-        if (pathSegment !== undefined) {
-           const loc = `${BASE_URL}/${lang}${(pathSegment ? '/' : '') + pathSegment}`;
-           addUrl(route.key, lang, loc);
-        }
+    // 1. Páginas estáticas y la página de inicio
+    routesConfig.filter(r => !r.dynamic).forEach(route => {
+        const key = `static-${route.key}`;
+        urls[key] = { lastmod: new Date().toISOString().split('T')[0], alternates: {} };
+        supportedLngs.forEach(lang => {
+            if (route.paths[lang]) {
+                urls[key].alternates[lang] = `/${lang}/${route.paths[lang]}`;
+            }
+        });
     });
-  });
 
-  // 2. Posts del blog
-  SUPPORTED_LANGS.forEach(lang => {
-    if (blogData[lang]) {
+    // Añadir la página de inicio para cada idioma
+    urls['static-home'] = { lastmod: new Date().toISOString().split('T')[0], alternates: {} };
+    supportedLngs.forEach(lang => {
+        urls['static-home'].alternates[lang] = `/${lang}`;
+    });
+
+    // 2. Páginas de posts del blog
+    Object.keys(blogData).forEach(lang => {
+        blogData[lang].forEach(post => {
+            const key = `post-${post.translationKey}`;
+            if (!urls[key]) {
+                urls[key] = { 
+                    lastmod: post.lastModified || post.date, 
+                    alternates: {} 
+                };
+            }
+            const postRoute = routesConfig.find(r => r.key === 'blogPost');
+            if (postRoute && postRoute.paths[lang]) {
+                urls[key].alternates[lang] = `/${lang}/${postRoute.paths[lang].replace(':slug', post.slug)}`;
+            }
+        });
+    });
+
+    // 3. Páginas de categorías del blog
+    const categoriesByKey = {};
+    Object.keys(blogData).forEach(lang => {
       blogData[lang].forEach(post => {
-        const routeConf = routesConfig.find(r => r.key === 'blogPost');
-        if (routeConf && routeConf.paths[lang]) {
-            const postPath = routeConf.paths[lang].replace(':slug', post.slug);
-            const loc = `${BASE_URL}/${lang}/${postPath}`;
-            const lastmod = post.lastModified ? post.lastModified.split('T')[0] : post.date.split('T')[0];
-            addUrl(`post-${post.translationKey}`, lang, loc, lastmod);
+        if (!post.categoryKey) return; // Necesitamos categoryKey
+        const key = `category-${post.categoryKey}`;
+        if (!categoriesByKey[key]) categoriesByKey[key] = { alternates: {} };
+        
+        const categoryRoute = routesConfig.find(r => r.key === 'blogCategory');
+        if (categoryRoute && categoryRoute.paths[lang]) {
+            const categoriaSlug = slugify(post.category);
+            categoriesByKey[key].alternates[lang] = `/${lang}/${categoryRoute.paths[lang].replace(':categoriaSlug', categoriaSlug)}`;
         }
       });
-    }
-  });
+    });
+    Object.assign(urls, categoriesByKey);
 
-  // 3. Páginas de categorías y etiquetas
-  const categories = new Map();
-  const tags = new Map();
 
-  SUPPORTED_LANGS.forEach(lang => {
-    if (blogData[lang]) {
+    // 4. Páginas de etiquetas del blog
+    const tagsByKey = {};
+     Object.keys(blogData).forEach(lang => {
         blogData[lang].forEach(post => {
-          if (post.category && post.categoryKey) {
-            if (!categories.has(post.categoryKey)) categories.set(post.categoryKey, {});
-            categories.get(post.categoryKey)[lang] = slugify(post.category);
-          }
-          if (post.tags) {
             post.tags.forEach(tag => {
-                if (!tags.has(tag.key)) tags.set(tag.key, {});
-                tags.get(tag.key)[lang] = slugify(tag.name);
+                const key = `tag-${tag.key}`;
+                if (!tagsByKey[key]) tagsByKey[key] = { alternates: {} };
+                const tagRoute = routesConfig.find(r => r.key === 'blogTag');
+                if (tagRoute && tagRoute.paths[lang]) {
+                    tagsByKey[key].alternates[lang] = `/${lang}/${tagRoute.paths[lang].replace(':tagSlug', slugify(tag.name))}`;
+                }
             });
-          }
         });
-    }
-  });
-  
-  categories.forEach((langs, key) => {
-    const routeConf = routesConfig.find(r => r.key === 'blogCategory');
-    if (routeConf) {
-        SUPPORTED_LANGS.forEach(lang => {
-          if(langs[lang] && routeConf.paths[lang]) {
-              const categoryPath = routeConf.paths[lang].replace(':categoriaSlug', langs[lang]);
-              const loc = `${BASE_URL}/${lang}/${categoryPath}`;
-              addUrl(`category-${key}`, lang, loc);
-          }
-        });
-    }
-  });
+    });
+    Object.assign(urls, tagsByKey);
 
-  tags.forEach((langs, key) => {
-    const routeConf = routesConfig.find(r => r.key === 'blogTag');
-    if (routeConf) {
-        SUPPORTED_LANGS.forEach(lang => {
-          if(langs[lang] && routeConf.paths[lang]) {
-              const tagPath = routeConf.paths[lang].replace(':tagSlug', langs[lang]);
-              const loc = `${BASE_URL}/${lang}/${tagPath}`;
-              addUrl(`tag-${key}`, lang, loc);
-          }
-        });
-    }
-  });
+    // --- CONSTRUIR EL XML ---
+    const sitemapEntries = Object.values(urls).flatMap(urlData =>
+        Object.entries(urlData.alternates).map(([lang, path]) => {
+            const alternatesXml = Object.entries(urlData.alternates)
+                .map(([altLang, altPath]) => `    <xhtml:link rel="alternate" hreflang="${altLang}" href="${BASE_URL}${altPath}" />`)
+                .join('\n');
 
-  // Construir el XML
-  const sitemapEntries = [];
-  for (const [key, { lastmod, alternates }] of urlMap.entries()) {
-    const canonicalUrl = alternates['es'] || Object.values(alternates)[0];
-    
-    // Añadir x-default si es la página de inicio
-    let alternateLinks = key === 'home' ? `<xhtml:link rel="alternate" hreflang="x-default" href="${BASE_URL}/"/>\n      ` : '';
-    
-    alternateLinks += Object.entries(alternates)
-      .map(([lang, href]) => `<xhtml:link rel="alternate" hreflang="${lang}" href="${href}"/>`)
-      .join('\n      ');
-
-    sitemapEntries.push(`
+            return `
   <url>
-    <loc>${canonicalUrl}</loc>
-    <lastmod>${lastmod}</lastmod>
+    <loc>${BASE_URL}${path}</loc>
+    <lastmod>${urlData.lastmod || new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>${key === 'home' ? '1.0' : '0.8'}</priority>
-    ${alternateLinks}
-  </url>`);
-  }
+    <priority>0.8</priority>
+${alternatesXml}
+  </url>`;
+        })
+    );
+    
+    // Eliminar duplicados si los hubiera
+    const uniqueSitemapEntries = [...new Set(sitemapEntries)];
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${sitemapEntries.join('')}
+${uniqueSitemapEntries.join('\n')}
 </urlset>`;
 
-  fs.writeFileSync(SITEMAP_PATH, sitemap);
+    fs.writeFileSync(SITEMAP_OUTPUT_PATH, sitemap);
+    console.log(`Sitemap generado correctamente en ${SITEMAP_OUTPUT_PATH}`);
+}
 
-  console.log(`✅ Sitemap generado exitosamente en: ${SITEMAP_PATH}`);
-};
-
-generateSitemap();
+generateSitemap().catch(console.error);

@@ -22,6 +22,7 @@ import NotFound from './NotFound';
 import { useSetAlternateLinks } from '../context/AlternateLinksContext';
 import { supportedLngs } from '../i18n';
 import { routesConfig } from '../routes';
+import { slugify } from '@/lib/utils'; // RUTA CORREGIDA
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -87,23 +88,29 @@ const BlogCategoriaPage = () => {
       try {
         const posts = await getBlogPosts(currentLang);
         const filteredPosts = posts.filter(post => 
-          post.category.toLowerCase().replace(/\s+/g, '-') === categoriaSlug
+          slugify(post.category) === categoriaSlug // Usar slugify para consistencia
         );
         setDisplayedPosts(filteredPosts);
 
-        const alternates: Record<string, string> = {};
-        const categoryRouteConfig = routesConfig.find(r => r.key === 'blogCategory');
+        // Se mantiene la lógica de alternate links
+        if (filteredPosts.length > 0) {
+            const currentCategoryKey = filteredPosts[0].categoryKey;
+            const alternates: Record<string, string> = {};
+            const categoryRouteConfig = routesConfig.find(r => r.key === 'blogCategory');
 
-        if (categoryRouteConfig) {
-            Object.keys(supportedLngs).forEach(langKey => {
-                const pathTemplate = categoryRouteConfig.paths[langKey as keyof typeof categoryRouteConfig.paths];
-                if (pathTemplate) {
-                    alternates[langKey] = `/${langKey}/${pathTemplate.replace(':categoriaSlug', categoriaSlug)}`;
-                }
-            });
-            setAlternateLinks(alternates);
-        } else {
-            console.warn("Route config for 'blogCategory' not found for alternate links generation.");
+            if (categoryRouteConfig) {
+                Object.keys(supportedLngs).forEach(langKey => {
+                    // Esta lógica asume que tienes acceso a todos los posts para encontrar el slug correcto
+                    // Lo simplificaremos aquí, ya que la lógica completa requeriría `getAllPostsFromAllLanguages`
+                    const pathTemplate = categoryRouteConfig.paths[langKey as keyof typeof categoryRouteConfig.paths];
+                    if (pathTemplate) {
+                        // Idealmente, aquí buscarías la categoría con el mismo `categoryKey` en el otro idioma
+                        // y usarías su slug. Por simplicidad, mantenemos el slug actual.
+                        alternates[langKey] = `/${langKey}/${pathTemplate.replace(':categoriaSlug', categoriaSlug)}`;
+                    }
+                });
+                setAlternateLinks(alternates);
+            }
         }
 
       } catch (error) {
@@ -124,7 +131,7 @@ const BlogCategoriaPage = () => {
     return <div className="flex justify-center items-center min-h-screen"><Loader2 className="h-12 w-12 animate-spin text-blue-600" /></div>;
   }
 
-  if (!categoriaSlug || !categoryName) { 
+  if (!categoriaSlug || displayedPosts.length === 0) { 
     return <NotFound />;
   }
   
@@ -186,68 +193,63 @@ const BlogCategoriaPage = () => {
             </p>
           </motion.header>
 
-          {displayedPosts.length > 0 ? (
-            <motion.div
-              variants={staggerContainer}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
-            >
-              {displayedPosts.map((post) => (
-                <motion.div key={`${post.slug}-${currentLang}`} variants={fadeInUp} className="h-full flex">
-                    <Card className="group bg-white dark:bg-slate-800/70 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl sm:rounded-2xl border border-gray-200/70 dark:border-slate-700/50 overflow-hidden flex flex-col h-full transform hover:-translate-y-1.5">
-                    <Link to={getPath('blogPost', { slug: post.slug })} className="block" aria-label={`${t('blog_content.read_full_article')} ${post.title}`}>
-                      <img src={post.image} alt={post.imageAlt} className="w-full h-52 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="800" height="450"/>
-                    </Link>
-                    <CardHeader className="p-5 sm:p-6">
-                      <div className="mb-2.5 sm:mb-3">
-                        <Badge variant="secondary" className="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs sm:text-sm font-medium">
-                          {post.category}
-                        </Badge>
-                      </div>
-                      <CardTitle className="text-lg sm:text-xl font-bold text-gray-800 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+          <motion.div
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
+          >
+            {displayedPosts.map((post) => (
+              <motion.div key={`${post.slug}-${currentLang}`} variants={fadeInUp} className="h-full flex">
+                  <Card className="group bg-white dark:bg-slate-800/70 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl sm:rounded-2xl border border-gray-200/70 dark:border-slate-700/50 overflow-hidden flex flex-col h-full transform hover:-translate-y-1.5">
+                  <Link to={getPath('blogPost', { slug: post.slug })} className="block" aria-label={`${t('blog_content.read_full_article')} ${post.title}`}>
+                    <img src={post.image} alt={post.imageAlt} className="w-full h-52 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="800" height="450"/>
+                  </Link>
+                  <CardHeader className="p-5 sm:p-6">
+                    <div className="mb-2.5 sm:mb-3">
+                      <Badge variant="secondary" className="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs sm:text-sm font-medium">
+                        {post.category}
+                      </Badge>
+                    </div>
+                    <CardTitle className="text-lg sm:text-xl font-bold text-gray-800 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <Link to={getPath('blogPost', { slug: post.slug })}>
+                        {post.title}
+                      </Link>
+                    </CardTitle>
+                     <div className="flex items-center text-xs text-gray-500 dark:text-slate-400 mt-2 space-x-3">
+                        <div className="flex items-center" title={t('blog_content.date_label')}>
+                            <CalendarDays className="w-3.5 h-3.5 mr-1" /> {new Date(post.date).toLocaleDateString(currentLang, { year: 'numeric', month: 'long', day: 'numeric' })}
+                        </div>
+                        <div className="flex items-center" title={`${t('blog_content.author_label')} ${post.author}`}>
+                            <UserCircle className="w-3.5 h-3.5 mr-1" /> {post.author}
+                        </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-5 sm:p-6 pt-0 flex-grow flex flex-col">
+                    <CardDescription className="text-sm text-gray-600 dark:text-slate-300 leading-relaxed mb-4 flex-grow line-clamp-3">
+                      {post.excerpt}
+                    </CardDescription>
+                    <div className="mt-auto">
+                      {post.tags && post.tags.length > 0 && (
+                        <div className="mb-4 flex flex-wrap gap-1.5 sm:gap-2 items-center">
+                          <TagIconLucide className="w-3.5 h-3.5 text-gray-400 dark:text-slate-500"/>
+                          {post.tags.map(tag => (
+                            <Link key={tag.key} to={getPath('blogTag', { tagSlug: slugify(tag.name) })} aria-label={`Ver todos los artículos con la etiqueta ${tag.name}`}>
+                                <Badge variant="outline" className="text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer">#{tag.name}</Badge>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                       <Button asChild variant="link" className="group text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 px-0 font-semibold self-start">
                         <Link to={getPath('blogPost', { slug: post.slug })}>
-                          {post.title}
+                          <> {t('blog_content.read_full_article')} <ArrowRight className="ml-1.5 w-4 h-4 group-hover:translate-x-1 transition-transform" /> </>
                         </Link>
-                      </CardTitle>
-                       <div className="flex items-center text-xs text-gray-500 dark:text-slate-400 mt-2 space-x-3">
-                          <div className="flex items-center" title={t('blog_content.date_label')}>
-                              <CalendarDays className="w-3.5 h-3.5 mr-1" /> {new Date(post.date).toLocaleDateString(currentLang, { year: 'numeric', month: 'long', day: 'numeric' })}
-                          </div>
-                          <div className="flex items-center" title={`${t('blog_content.author_label')} ${post.author}`}>
-                              <UserCircle className="w-3.5 h-3.5 mr-1" /> {post.author}
-                          </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="p-5 sm:p-6 pt-0 flex-grow flex flex-col">
-                      <CardDescription className="text-sm text-gray-600 dark:text-slate-300 leading-relaxed mb-4 flex-grow line-clamp-3">
-                        {post.excerpt}
-                      </CardDescription>
-                      <div className="mt-auto">
-                        {post.tags && post.tags.length > 0 && (
-                          <div className="mb-4 flex flex-wrap gap-1.5 sm:gap-2 items-center">
-                            <TagIconLucide className="w-3.5 h-3.5 text-gray-400 dark:text-slate-500"/>
-                            {post.tags.map(tag => (
-                              <Link key={tag} to={getPath('blogTag', { tagSlug: tag.toLowerCase().replace(/\s+/g, '-') })} aria-label={`Ver todos los artículos con la etiqueta ${tag}`}>
-                                  <Badge variant="outline" className="text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer">#{tag}</Badge>
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                         <Button asChild variant="link" className="group text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 px-0 font-semibold self-start">
-                          <Link to={getPath('blogPost', { slug: post.slug })}>
-                            <> {t('blog_content.read_full_article')} <ArrowRight className="ml-1.5 w-4 h-4 group-hover:translate-x-1 transition-transform" /> </>
-                          </Link>
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </motion.div>
-          ) : (
-            <motion.p variants={fadeInUp} className="text-center text-lg text-gray-600 dark:text-slate-400 py-12">
-              {t('blog_content.category_empty_state', { categoryName: categoryName })}
-            </motion.p>
-          )}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+          
            <motion.div variants={fadeInUp} className="mt-12 text-center">
                 <Button onClick={() => navigate(getPath('blog'))} variant="outline" className="group">
                     <> <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-0.5 transition-transform" /> {t('blog_content.back_to_all_articles')} </>

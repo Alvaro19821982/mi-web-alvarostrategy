@@ -22,8 +22,7 @@ import NotFound from './NotFound';
 import { useSetAlternateLinks } from '../context/AlternateLinksContext';
 import { supportedLngs } from '../i18n';
 import { routesConfig } from '../routes';
-// CORRECCIÓN: Ruta de importación estandarizada
-import { slugify } from '@/lib/utils';
+import { slugify } from '@/lib/utils'; // RUTA CORREGIDA
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -149,74 +148,10 @@ const BlogTagPage = () => {
   }
 
   if (!tagSlug || displayedPosts.length === 0) {
-    const pageTitle = t('blog_content.tag_page_title', { tagName: tagName || tagSlug });
-    const pageDescription = t('blog_content.tag_page_desc', { tagName: tagName || tagSlug });
+    // Si no hay posts, mostramos un estado vacío pero con el breadcrumb y título correctos
      return (
-    <>
-      <SeoTags
-        title={pageTitle}
-        description={pageDescription}
-        pathname={location.pathname}
-      />
-      <Helmet>
-        <meta name="robots" content="noindex, follow" />
-      </Helmet>
-      <div className="min-h-screen bg-slate-100 dark:bg-slate-900 text-gray-800 dark:text-slate-200 py-12 sm:py-16 md:py-20">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-          className="max-w-5xl mx-auto px-4 sm:px-6"
-        >
-          <motion.div variants={fadeInUp} className="mb-8 md:mb-10">
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link to={`/${currentLang}`} className="text-sm flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                      <> <HomeIcon className="h-3.5 w-3.5 mr-1.5" /> {t('nav.home')} </>
-                    </Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link to={getPath('blog')} className="text-sm flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                     <> <BlogIconFile className="h-3.5 w-3.5 mr-1.5" /> {t('nav.blog')} </>
-                    </Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage className="text-sm font-medium text-gray-700 dark:text-slate-200">{tagName || tagSlug}</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </motion.div>
-
-          <motion.header variants={fadeInUp} className="text-center mb-10 md:mb-12 lg:mb-16">
-             <Badge className="mb-5 sm:mb-6 bg-gradient-to-r from-indigo-600 to-purple-700 text-white px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base font-semibold rounded-lg shadow-xl cursor-default">
-              <> <TagIconLucide className="w-5 h-5 mr-2 inline-block" /> {t('blog_content.tag_badge')} </>
-            </Badge>
-            <h1 className="text-3xl sm:text-4xl md:text-[2.75rem] lg:text-5xl font-black bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-800 dark:from-slate-100 dark:via-indigo-400 dark:to-purple-400 bg-clip-text text-transparent leading-tight mb-4">
-              {pageTitle}
-            </h1>
-            <p className="text-md sm:text-lg text-gray-600 dark:text-slate-300 max-w-2xl mx-auto">
-              {t('blog_content.tag_header_subtitle', { tagName: tagName || tagSlug })}
-            </p>
-          </motion.header>
-            <motion.p variants={fadeInUp} className="text-center text-lg text-gray-600 dark:text-slate-400 py-12">
-              {t('blog_content.tag_empty_state', { tagName: tagName || tagSlug })}
-            </motion.p>
-           <motion.div variants={fadeInUp} className="mt-12 text-center">
-                <Button onClick={() => navigate(getPath('blog'))} variant="outline" className="group">
-                    <> <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-0.5 transition-transform" /> {t('blog_content.back_to_all_articles')} </>
-                </Button>
-            </motion.div>
-        </motion.div>
-      </div>
-    </>
-    );
+        <NotFound />
+     );
   }
   
   const pageTitle = t('blog_content.tag_page_title', { tagName: tagName });
