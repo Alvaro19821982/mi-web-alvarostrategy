@@ -18,7 +18,8 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { routesConfig } from '../routes';
-import { slugify } from '@/lib/utils'; // RUTA CORREGIDA
+// CORRECCIÓN: Ruta de importación estandarizada
+import { slugify } from '@/lib/utils';
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },

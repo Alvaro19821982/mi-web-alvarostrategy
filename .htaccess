@@ -1,4 +1,10 @@
 # ===================================================================
+# CONFIGURACIÓN DEL TIPO MIME PARA SITEMAP
+# Asegura que los archivos .xml se sirvan con la cabecera correcta.
+# ===================================================================
+AddType application/xml .xml
+
+# ===================================================================
 # REGLAS DE REESCRITURA Y SEGURIDAD BÁSICA
 # Redirección forzada a HTTPS y WWW
 # ===================================================================
@@ -7,7 +13,7 @@
     # Forzar HTTPS
     RewriteCond %{HTTPS} !=on
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-    
+
     # Forzar no-www (o www si se prefiere, pero consistente)
     RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
     RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
@@ -119,9 +125,9 @@ Options -Indexes
 # Desactivadas para dar prioridad a mod_expires, que es más explícito.
 # Si tienes problemas, puedes descomentar estas y comentar el bloque mod_expires.
 # ===================================================================
-# <IfModule litespeed>
+#<IfModule litespeed>
 #    CacheEngine on public,no-vary
 #    CacheEngine on spa
 #    RewriteRule ^(index\.html)?$ - [E=Cache-Control:no-cache]
 #    RewriteRule \.(css|js|gif|jpeg|jpg|png|webp|svg|ico|woff|woff2|ttf)$ - [E=Cache-Control:public,max-age=31536000,immutable]
-# </IfModule>
+#</IfModule>

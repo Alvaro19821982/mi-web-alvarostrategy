@@ -12,6 +12,22 @@ const outputFile = path.join(publicDir, 'blog-data.json');
 const supportedLangs = ['es', 'en', 'fr'];
 const blogData = {};
 
+// AÑADIDO: Función slugify para consistencia con el sitemap
+const slugify = (text) => {
+  if (!text) return '';
+  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
+  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
+  const p = new RegExp(a.split('').join('|'), 'g')
+  return text.toString().toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(p, c => b.charAt(a.indexOf(c)))
+    .replace(/&/g, '-and-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+};
+
 console.log('🚀 Iniciando construcción de datos del blog...');
 
 supportedLangs.forEach(lang => {
@@ -33,6 +49,12 @@ supportedLangs.forEach(lang => {
     const { data, content } = matter(fileContents);
     const htmlContent = marked(content);
 
+    // CORRECCIÓN: Transformar las etiquetas de string a objetos { key, name }
+    const processedTags = (data.tags ?? []).map((tagName: string) => ({
+      key: slugify(tagName),
+      name: tagName
+    }));
+
     return {
       slug,
       content: htmlContent,
@@ -44,8 +66,8 @@ supportedLangs.forEach(lang => {
       lastModified: data.lastModified ? new Date(data.lastModified).toISOString() : undefined,
       author: data.author ?? 'Autor Anónimo',
       category: data.category ?? 'Sin Categoría',
-      categoryKey: data.categoryKey ?? 'general', // AÑADIDO: Leer la categoryKey
-      tags: data.tags ?? [],
+      categoryKey: data.categoryKey ?? 'general',
+      tags: processedTags, // MODIFICADO: Usar las etiquetas procesadas
       translationKey: data.translationKey ?? slug,
     };
   });
