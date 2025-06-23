@@ -1,5 +1,5 @@
-// src/pages/index.tsx (Código completo con memoización de componentes)
-import React, { useState, useEffect, useCallback, useMemo, useRef, memo } from "react";
+// src/pages/index.tsx (Código completo con optimizaciones finales de LCP)
+import React, { useState, useEffect, useCallback, useMemo, useRef, memo, Suspense, lazy } from "react";
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -8,10 +8,8 @@ import {
   Clock, Lightbulb, Rocket, Trophy, Heart, AlertTriangle,
   HelpCircle, TrendingDown, Briefcase, Speaker, Brain, BookOpen, UserCircle, MessageCircle, Loader2
 } from "lucide-react";
-import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  BarChart, Bar, Cell
-} from 'recharts';
+import { BarChart, Bar, Cell, ResponsiveContainer } from 'recharts';
+import { CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +17,10 @@ import SeoTags from "@/components/SeoTags";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getBlogPosts, BlogPost as BlogPostType } from "@/lib/blogData";
 import { routesConfig } from '../routes';
+import ChartPlaceholder from "@/components/ui/ChartPlaceholder";
+
+// --- MODIFICACIÓN LCP: Carga diferida del componente del gráfico ---
+const ResultChart = lazy(() => import('@/components/ui/ResultChart'));
 
 const fadeInUp: Variants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }};
 const staggerContainer: Variants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2, ease: "easeOut" } }};
@@ -29,72 +31,6 @@ type StepColor = "blue" | "indigo" | "purple" | "pink" | "red" | "orange";
 const activeButtonThemeClasses: Record<StepColor, string> = { blue: "bg-blue-600 text-white ring-blue-400", indigo: "bg-indigo-600 text-white ring-indigo-400", purple: "bg-purple-600 text-white ring-purple-400", pink: "bg-pink-600 text-white ring-pink-400", red: "bg-red-600 text-white ring-red-400", orange: "bg-orange-600 text-white ring-orange-400", };
 const stepColorRelatedClasses: Record<StepColor, { border: string; bgIcon: string; textIcon: string; textSubtitle: string }> = { blue: { border: "border-blue-500", bgIcon: "bg-blue-100", textIcon: "text-blue-600", textSubtitle: "text-blue-600" }, indigo: { border: "border-indigo-500", bgIcon: "bg-indigo-100", textIcon: "text-indigo-600", textSubtitle: "text-indigo-600" }, purple: { border: "border-purple-500", bgIcon: "bg-purple-100", textIcon: "text-purple-600", textSubtitle: "text-purple-600" }, pink: { border: "border-pink-500", bgIcon: "bg-pink-100", textIcon: "text-pink-600", textSubtitle: "text-pink-600" }, red: { border: "border-red-500", bgIcon: "bg-red-100", textIcon: "text-red-600", textSubtitle: "text-red-600" }, orange: { border: "border-orange-500", bgIcon: "bg-orange-100", textIcon: "text-orange-600", textSubtitle: "text-orange-600" }, };
 
-// MODIFICACIÓN: Envolver en React.memo para prevenir re-renders innecesarios
-const ResultChart = memo(() => {
-  const { t } = useTranslation();
-  const growthData = [
-    { month: 'Ene', before: 20, after: 45, projection: 55 },
-    { month: 'Feb', before: 25, after: 52, projection: 68 },
-    { month: 'Mar', before: 22, after: 68, projection: 85 },
-    { month: 'Abr', before: 28, after: 78, projection: 95 },
-    { month: 'May', before: 30, after: 95, projection: 120 },
-    { month: 'Jun', before: 35, after: 120, projection: 145 }
-  ];
-  return (
-    <div className="bg-white/80 backdrop-blur-md p-3 xxs:p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl border border-gray-200/50 hover:shadow-2xl sm:hover:shadow-3xl transition-shadow duration-500">
-      <div className="flex items-center justify-between mb-4 sm:mb-6">
-        <h3 className="text-md sm:text-xl lg:text-2xl font-bold text-gray-900">{t('charts.results')}</h3>
-        <div className="flex items-center space-x-1.5 sm:space-x-2">
-          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse"></div>
-          <span className="text-xs sm:text-sm text-gray-600">{t('charts.live')}</span>
-        </div>
-      </div>
-      <ResponsiveContainer width="100%" height={240}>
-        <AreaChart data={growthData} margin={{ top: 5, right: 5, left: -25, bottom: 5 }}>
-          <defs>
-            <>
-              <linearGradient id="colorBefore" x1="0" y1="0" x2="0" y2="1">
-                <>
-                  <stop offset="5%" stopColor="#f87171" stopOpacity={0.4}/>
-                  <stop offset="95%" stopColor="#f87171" stopOpacity={0}/>
-                </>
-              </linearGradient>
-              <linearGradient id="colorAfter" x1="0" y1="0" x2="0" y2="1">
-                <>
-                  <stop offset="5%" stopColor="#60a5fa" stopOpacity={0.4}/>
-                  <stop offset="95%" stopColor="#60a5fa" stopOpacity={0}/>
-                </>
-              </linearGradient>
-            </>
-          </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-          <XAxis dataKey="month" stroke="#6b7280" fontSize={12} tickMargin={5}/>
-          <YAxis stroke="#6b7280" fontSize={12} tickMargin={5}/>
-          <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '10px', boxShadow: '0 4px 10px -3px rgba(0,0,0,0.1)', fontSize: '12px' }} />
-          <Area type="monotone" dataKey="before" stroke="#f87171" fillOpacity={1} fill="url(#colorBefore)" strokeWidth={2} name={t('charts.before')} />
-          <Area type="monotone" dataKey="after" stroke="#60a5fa" fillOpacity={1} fill="url(#colorAfter)" strokeWidth={2.5} name={t('charts.with_strategy')} />
-        </AreaChart>
-      </ResponsiveContainer>
-      <div className="flex flex-wrap justify-between items-center mt-4 text-[9px] xxs:text-[10px] sm:text-xs">
-        <div className="flex items-center mb-1 sm:mb-0">
-          <div className="w-2.5 h-0.5 sm:w-3 bg-red-400 mr-1 sm:mr-1.5"></div>
-          <span className="text-gray-600">{t('charts.traditional_marketing')}</span>
-        </div>
-        <div className="flex items-center mb-1 sm:mb-0">
-          <div className="w-2.5 h-0.5 sm:w-3 bg-blue-400 mr-1 sm:mr-1.5"></div>
-          <span className="text-gray-600">{t('charts.with_strategy')}</span>
-        </div>
-        <div className="flex items-center">
-          <div className="w-2.5 h-0.5 sm:w-3 bg-green-400 mr-1 sm:mr-1.5"></div>
-          <span className="text-gray-600">{t('charts.projection')}</span>
-        </div>
-      </div>
-    </div>
-  );
-});
-ResultChart.displayName = "ResultChart";
-
-// MODIFICACIÓN: Envolver en React.memo para prevenir re-renders innecesarios
 const MethodStep = memo(({ step, index, active, onClick }: { step: { title: string; color: StepColor }; index: number; active: boolean; onClick: (index: number) => void }) => { return ( <button onClick={() => onClick(index)} className={` px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-3 rounded-lg text-xs sm:text-sm md:text-base font-semibold tracking-tight transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 whitespace-nowrap ${active ? `${activeButtonThemeClasses[step.color]} shadow-xl ring-2 ring-offset-2 ring-offset-slate-50` : `bg-blue-50 text-blue-700 border-2 border-blue-300 hover:bg-blue-100 hover:border-blue-500 focus:ring-blue-300`} `} aria-label={`Paso ${index + 1}: ${step.title}`} > {step.title.toUpperCase()} </button> ); });
 MethodStep.displayName = "MethodStep";
 
@@ -106,7 +42,7 @@ const Index = () => {
 
   const [activeMethodStep, setActiveMethodStep] = useState(0);
   const methodIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
+  
   const [blogPosts, setBlogPosts] = useState<BlogPostType[]>([]);
   const [blogLoading, setBlogLoading] = useState(true);
 
@@ -117,7 +53,7 @@ const Index = () => {
       const fallbackKey = t(`routes.${routeKey}`, { lng: currentLang, defaultValue: routeKey });
       return `/${currentLang}/${fallbackKey}`;
     }
-
+    
     let pathSegment = routeConf.paths[currentLang as keyof typeof routeConf.paths];
     if (!pathSegment) {
         console.warn(`Path for language "${currentLang}" not found for route key "${routeKey}".`);
@@ -150,7 +86,7 @@ const Index = () => {
     { key: "problem5", icon: <Shield className="w-8 h-8 sm:w-10 md:w-12 opacity-60" /> },
     { key: "problem6", icon: <HelpCircle className="w-8 h-8 sm:w-10 md:w-12" /> },
   ].map(p => ({...p, title: t(`problems.${p.key}_title`), description: t(`problems.${p.key}_desc`)})), [t]);
-
+  
   const whyTrustUsData = useMemo(() => [
     { icon: <MessageCircle className="w-6 h-6 text-blue-600" />, titleKey: "whyTrustUs.item1_title", descKey: "whyTrustUs.item1_desc" },
     { icon: <Award className="w-6 h-6 text-blue-600" />, titleKey: "whyTrustUs.item2_title", descKey: "whyTrustUs.item2_desc" },
@@ -175,7 +111,7 @@ const Index = () => {
     };
     fetchBlogPosts();
   }, [currentLang]);
-
+  
   const startMethodCarousel = useCallback(() => {
     if (methodIntervalRef.current) clearInterval(methodIntervalRef.current);
     methodIntervalRef.current = setInterval(() => {
@@ -201,7 +137,7 @@ const Index = () => {
 
   const currentStep = useMemo(() => interactiveSteps[activeMethodStep], [activeMethodStep, interactiveSteps]);
   const currentStepClasses = useMemo(() => stepColorRelatedClasses[currentStep.color], [currentStep]);
-
+  
   const resultsData = [
     { name: t('charts.web_traffic'), value: 150, color: '#3b82f6', description: t('method.results_traffic') },
     { name: t('charts.conversions'), value: 230, color: '#22d3ee', description: t('method.results_conversions') },
@@ -292,7 +228,10 @@ const Index = () => {
               variants={fadeInRight} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
               className="relative lg:col-span-2 order-2 lg:order-2 mx-auto w-full sm:max-w-md lg:max-w-none mt-10 lg:mt-0"
             >
-              <ResultChart />
+              <Suspense fallback={<ChartPlaceholder />}>
+                <ResultChart />
+              </Suspense>
+
               <div className="absolute -top-1 right-1 xxs:-top-2 xxs:right-0 sm:-top-3 sm:-right-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white p-1 xxs:p-1.5 sm:p-2 rounded-lg sm:rounded-xl shadow-lg animate-bounce">
                 <div className="text-sm xxs:text-base sm:text-xl font-bold">+230%</div>
                 <div className="text-[7px] xxs:text-[9px] sm:text-xs">ROI Promedio</div>
