@@ -21,8 +21,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- MODIFICACIÓN: Añadido &display=swap para optimizar la carga de fuentes y mejorar el FCP/CLS -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- MODIFICACIÓN LCP: Carga de fuentes no bloqueante -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap"></noscript>
+    
+    <!-- MODIFICACIÓN LCP: Estilos críticos inyectados -->
+    <style>
+      /* Contenido de public/critical.css irá aquí durante el build */
+    </style>
 
   </head>
 
