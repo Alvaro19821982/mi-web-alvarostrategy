@@ -1,12 +1,18 @@
 # robots.txt para alvarostrategy.com
-# Fecha de creación: 2025-06-06
+# Fecha de creación: 2024-06-20
+# Versión: 2.0 - Optimizado para estructura multilingüe
 
 User-agent: *
 Allow: /
 
-# Disallow para páginas de categorías y tags del blog (ya que tienen noindex)
-Disallow: /blog/categoria/
-Disallow: /blog/tag/
+# Disallow para páginas de categorías y tags del blog en todos los idiomas.
+# Esto se hace porque ya tienen una metaetiqueta "noindex" y así evitamos
+# que Google gaste presupuesto de rastreo en ellas.
+Disallow: /*/categoria/
+Disallow: /*/category/
+Disallow: /*/categorie/
+Disallow: /*/etiqueta/
+Disallow: /*/tag/
 
 # Especificar la ubicación del sitemap
 Sitemap: https://alvarostrategy.com/sitemap.xml

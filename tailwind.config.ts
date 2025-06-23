@@ -7,7 +7,7 @@ export default {
 		"./pages/**/*.{ts,tsx}",
 		"./components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}", // Asegúrate que esta ruta cubre todos tus archivos de código fuente
+		"./src/**/*.{ts,tsx}",
 	],
 	prefix: "",
 	theme: {
@@ -19,6 +19,43 @@ export default {
 			}
 		},
 		extend: {
+			// ====================================================================
+			// INICIO: CONFIGURACIÓN PARA @tailwindcss/typography
+			// Esto configura la clase `prose` para que use los colores de tu web.
+			// ====================================================================
+			typography: ({ theme }) => ({
+				DEFAULT: {
+				  css: {
+					'--tw-prose-body': theme('colors.foreground / 85%'),
+					'--tw-prose-headings': theme('colors.primary.DEFAULT'),
+					'--tw-prose-lead': theme('colors.foreground / 90%'),
+					'--tw-prose-links': theme('colors.primary.DEFAULT'),
+					'--tw-prose-bold': theme('colors.foreground'),
+					'--tw-prose-counters': theme('colors.muted.foreground'),
+					'--tw-prose-bullets': theme('colors.muted.foreground'),
+					'--tw-prose-hr': theme('colors.border'),
+					'--tw-prose-quotes': theme('colors.foreground'),
+					'--tw-prose-quote-borders': theme('colors.primary.DEFAULT'),
+					'--tw-prose-captions': theme('colors.muted.foreground'),
+					'--tw-prose-code': theme('colors.primary.DEFAULT'),
+					'--tw-prose-pre-code': theme('colors.muted.foreground'),
+					'--tw-prose-pre-bg': theme('colors.muted.DEFAULT'),
+					'--tw-prose-th-borders': theme('colors.border'),
+					'--tw-prose-td-borders': theme('colors.border'),
+					'a': {
+						textDecoration: 'none',
+						fontWeight: '500',
+						'&:hover': {
+						  textDecoration: 'underline',
+						},
+					},
+				  },
+				},
+			}),
+			// ====================================================================
+			// FIN: CONFIGURACIÓN PARA @tailwindcss/typography
+			// ====================================================================
+
 			fontFamily: {
 				sans: ['Poppins', ...defaultTheme.fontFamily.sans],
 			},
@@ -74,14 +111,13 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: { height: '0' }, // Usar string para height
+					from: { height: '0' },
 					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
 					from: { height: 'var(--radix-accordion-content-height)' },
-					to: { height: '0' } // Usar string para height
+					to: { height: '0' }
 				},
-        // KEYFRAMES PARA LAS ANIMACIONES DE LA SECCIÓN REDISEÑADA
 				fadeIn: {
 					'0%': { opacity: '0' },
 					'100%': { opacity: '1' },
@@ -102,8 +138,6 @@ export default {
 					'0%': { opacity: '0', transform: 'translateY(-20px)' },
 					'100%': { opacity: '1', transform: 'translateY(0)' },
 				},
-        // Tu 'slide-up' original, si la sigues necesitando para otra cosa.
-        // Si 'fadeInUp' la reemplaza, puedes eliminar esta.
 				'slide-up': { 
 					'0%': { opacity: '0', transform: 'translateY(20px)' },
 					'100%': { opacity: '1', transform: 'translateY(0)' }
@@ -112,16 +146,14 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-        // ANIMACIONES PARA LA SECCIÓN REDISEÑADA
 				'fade-in': 'fadeIn 0.6s ease-out forwards',
 				'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
 				'fade-in-left': 'fadeInLeft 0.7s ease-out forwards',
 				'fade-in-right': 'fadeInRight 0.7s ease-out forwards',
 				'slide-in-down': 'slideInDown 0.5s ease-out forwards',
-        // Tu 'slide-up' original
-				'slide-up': 'slide-up 0.6s ease-out forwards' // Añadido 'forwards' si quieres que mantenga el estado final
+				'slide-up': 'slide-up 0.6s ease-out forwards'
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [require("tailwindcss-animate"), require('@tailwindcss/typography')], // <-- Plugin añadido aquí
 } satisfies Config;

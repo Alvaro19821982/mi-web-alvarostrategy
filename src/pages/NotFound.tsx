@@ -12,9 +12,9 @@ import {
     AlertTriangle,
     Search,
     Lightbulb,
-    // ArrowRight // No se usa directamente aquí
 } from "lucide-react";
 import { Input } from "@/components/ui/input"; 
+import { supportedLngs } from '../i18n'; // Importamos los idiomas soportados
 
 // --- ANIMATION VARIANTS ---
 const fadeInUp: Variants = {
@@ -45,7 +45,7 @@ const NotFound = () => {
 
   useEffect(() => {
     console.error(
-      `Error 404: El usuario intentó acceder a la ruta inexistente: ${location.pathname}${location.search}${location.hash}` // Corregido mayúscula y mensaje
+      `Error 404: El usuario intentó acceder a la ruta inexistente: ${location.pathname}${location.search}${location.hash}`
     );
   }, [location]);
 
@@ -56,15 +56,22 @@ const NotFound = () => {
     }
   };
 
-  const pageTitle = "Página no encontrada (error 404) | AlvaroStrategy"; // Corregido mayúscula
-  const pageDescription = "¡Vaya! Parece que la página que buscas no existe o ha sido movida. No te preocupes, te ayudamos a encontrar lo que necesitas."; // Corregido mayúscula
+  // Lógica para detectar el idioma o usar uno por defecto
+  const pathParts = location.pathname.split('/');
+  const langPrefix = pathParts[1];
+  const detectedLang = Object.keys(supportedLngs).includes(langPrefix) ? langPrefix : 'es';
 
+  // Textos (usamos español como fallback seguro)
+  const pageTitle = "Página no encontrada (404) | AlvaroStrategy";
+  const pageDescription = "¡Vaya! Parece que la página que buscas no existe o ha sido movida. Te ayudamos a encontrar lo que necesitas.";
+  
+  // Enlaces de navegación inteligentes
   const mainPages = [
-    { label: "Inicio", path: "/", icon: <Home className="w-5 h-5 mr-2" /> },
-    { label: "Nuestro método", path: "/mi-metodo", icon: <Compass className="w-5 h-5 mr-2" /> },
-    { label: "Servicios", path: "/servicios", icon: <Lightbulb className="w-5 h-5 mr-2" /> },
-    { label: "Blog", path: "/blog", icon: <FileText className="w-5 h-5 mr-2" /> },
-    { label: "Contacto", path: "/contacto", icon: <MessageSquare className="w-5 h-5 mr-2" /> },
+    { label: "Inicio", path: `/${detectedLang}`, icon: <Home className="w-5 h-5 mr-2" /> },
+    { label: "Nuestro método", path: `/${detectedLang}/${detectedLang === 'es' ? 'mi-metodo' : (detectedLang === 'en' ? 'my-method' : 'ma-methode')}`, icon: <Compass className="w-5 h-5 mr-2" /> },
+    { label: "Servicios", path: `/${detectedLang}/servicios`, icon: <Lightbulb className="w-5 h-5 mr-2" /> },
+    { label: "Blog", path: `/${detectedLang}/blog`, icon: <FileText className="w-5 h-5 mr-2" /> },
+    { label: "Contacto", path: `/${detectedLang}/contacto`, icon: <MessageSquare className="w-5 h-5 mr-2" /> },
   ];
 
   return (
@@ -133,7 +140,7 @@ const NotFound = () => {
 
           <motion.div variants={fadeInUp}>
             <p className="text-sm text-gray-500 dark:text-slate-400">
-              Si crees que esto es un error o no encuentras lo que buscas, no dudes en <Link to="/contacto" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">contactarnos</Link>.
+              Si crees que esto es un error o no encuentras lo que buscas, no dudes en <Link to={`/${detectedLang}/contacto`} className="text-blue-600 dark:text-blue-400 hover:underline font-medium">contactarnos</Link>.
             </p>
           </motion.div>
         </motion.div>
