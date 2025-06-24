@@ -1,6 +1,6 @@
-// src/App.tsx (Código completo con la corrección de scroll lateral)
+// src/App.tsx (Código completo con la corrección de scroll lateral y hreflang)
 import React, { useState, useCallback, useEffect, useRef, Suspense, lazy } from 'react';
-import { Routes, Route, Link, useNavigate, useLocation, useParams, Outlet, Navigate } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, useLocation, useParams, Outlet, Navigate, matchPath } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { supportedLngs } from './i18n';
@@ -14,7 +14,7 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ArrowRight, Menu, X, TrendingUp, Mail, Phone, Briefcase, Award, Send, BookOpen, Home, Cog, User, Lightbulb, SearchCheck, Cpu, Users, DollarSign, Heart, Rocket, FileText, Loader2 } from "lucide-react";
 import ErrorBoundary from './components/ui/ErrorBoundary';
-import { AlternateLinksProvider } from './context/AlternateLinksContext';
+import { AlternateLinksProvider, useSetAlternateLinks } from './context/AlternateLinksContext';
 import ScrollToTopButton from './components/ui/ScrollToTopButton'; 
 
 const Index = lazy(() => import('./pages/index'));
@@ -220,9 +220,69 @@ const Footer = () => {
 };
 
 const LanguageLayout = () => {
-  const { i18n } = useTranslation(); const location = useLocation(); const lang = location.pathname.split('/')[1]; useEffect(() => { if (lang && i18n.language !== lang && Object.keys(supportedLngs).includes(lang)) { i18n.changeLanguage(lang); } }, [lang, i18n]); if (!lang || !Object.keys(supportedLngs).includes(lang)) { return <Navigate to="/404" replace />; } const htmlLang = supportedLngs[lang as keyof typeof supportedLngs];
-  // --- MODIFICACIÓN DE LAYOUT PARA PREVENIR SCROLL HORIZONTAL ---
-  return (<div className="flex flex-col min-h-screen overflow-x-hidden"> <Helmet><html lang={htmlLang} /></Helmet> <ScrollToSectionOnLoad /> <Navigation /> <main className="flex-grow"><Outlet /></main> <ScrollToTopButton /> <Footer /> </div>);
+  const { i18n } = useTranslation(); 
+  const location = useLocation(); 
+  const lang = location.pathname.split('/')[1]; 
+  const setAlternateLinks = useSetAlternateLinks();
+
+  useEffect(() => { 
+    if (lang && i18n.language !== lang && Object.keys(supportedLngs).includes(lang)) { 
+      i18n.changeLanguage(lang); 
+    } 
+  }, [lang, i18n]);
+  
+  // CORRECCIÓN SEO: Lógica de hreflang mejorada y centralizada
+  useEffect(() => {
+    // Si la página actual es una de las páginas de inicio (ej. /es, /es/)
+    if (location.pathname === `/${lang}` || location.pathname === `/${lang}/`) {
+      const homeAlternates: Record<string, string> = { 'x-default': '/' };
+      Object.keys(supportedLngs).forEach(langKey => {
+        homeAlternates[langKey] = `/${langKey}/`;
+      });
+      setAlternateLinks(homeAlternates);
+      return; // Fin de la lógica para la homepage
+    }
+
+    // Para cualquier otra página, intenta encontrar una ruta estática que coincida
+    const currentRoute = routesConfig.find(route => {
+        const pathPattern = `/${lang}/${route.paths[lang as keyof typeof route.paths] || ''}`;
+        return matchPath(pathPattern, location.pathname) && !pathPattern.includes(':');
+    });
+
+    if (currentRoute) {
+        const alternates: Record<string, string> = {};
+        Object.keys(supportedLngs).forEach(langKey => {
+            const pathSegment = currentRoute.paths[langKey as keyof typeof currentRoute.paths];
+            if (pathSegment) {
+                alternates[langKey] = `/${langKey}/${pathSegment}`;
+            }
+        });
+        setAlternateLinks(alternates);
+    } else {
+        // Para rutas dinámicas (con :slug, etc.), la lógica se maneja en el componente de esa página.
+        // Limpiamos el contexto para evitar arrastrar hreflangs incorrectos.
+        setAlternateLinks(null); 
+    }
+
+    return () => setAlternateLinks(null);
+  }, [location.pathname, lang, setAlternateLinks, i18n.language]);
+
+  if (!lang || !Object.keys(supportedLngs).includes(lang)) { 
+    return <Navigate to="/404" replace />; 
+  } 
+
+  return (
+    <div className="flex flex-col min-h-screen overflow-x-hidden"> 
+      <Helmet>
+        <html lang={lang} />
+      </Helmet> 
+      <ScrollToSectionOnLoad /> 
+      <Navigation /> 
+      <main className="flex-grow"><Outlet /></main> 
+      <ScrollToTopButton /> 
+      <Footer /> 
+    </div>
+  );
 };
 
 const LanguageRedirector = () => {

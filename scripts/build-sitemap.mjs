@@ -31,37 +31,23 @@ const readJSONFile = (filePath) => {
   return JSON.parse(data);
 };
 
-// CORRECCIÓN: Función mejorada para leer el archivo .ts y extraer el array de configuración
 const getRoutesConfig = () => {
   const fileContent = fs.readFileSync(ROUTES_CONFIG_PATH, 'utf-8');
-  
-  // Expresión regular para encontrar el array, ignorando los imports y el tipado.
-  // Busca 'export const routesConfig = [' y captura todo hasta el '];' final.
   const match = fileContent.match(/export const routesConfig\s*=\s*(\[[\s\S]*?\]);/);
-  
   if (!match || !match[1]) {
     throw new Error('No se pudo encontrar o parsear routesConfig en routes.ts');
   }
-
-  // Ahora, debemos procesar el texto capturado para que sea un JSON válido.
-  // Esto implica quitar los nombres de los componentes (ej. 'component: MiMetodo,')
-  // ya que no son válidos en JSON y no los necesitamos en este script.
   let configString = match[1];
   configString = configString.replace(/component:\s*\w+,/g, '');
-  
-  // Convertimos las comillas simples a dobles para que sea JSON válido
   configString = configString.replace(/'/g, '"');
-
-  // Usamos una función constructora para evaluar el string de forma segura
   return new Function(`return ${configString}`)();
 };
-
 
 const generateSitemap = () => {
   console.log('🚀 Generando sitemap...');
   
   const blogData = readJSONFile(BLOG_DATA_PATH);
-  const routesConfig = getRoutesConfig(); // Usamos la nueva función mejorada
+  const routesConfig = getRoutesConfig();
 
   const today = new Date().toISOString().split('T')[0];
 
@@ -78,10 +64,11 @@ const generateSitemap = () => {
     }
   };
 
-  // 1. Páginas estáticas (incluida la raíz para hreflang x-default)
-  addUrl('home', 'es', `${BASE_URL}/es`);
-  addUrl('home', 'en', `${BASE_URL}/en`);
-  addUrl('home', 'fr', `${BASE_URL}/fr`);
+  // 1. Páginas estáticas
+  // Añadimos la clave 'home' para un tratamiento especial del x-default
+  addUrl('home', 'es', `${BASE_URL}/es/`);
+  addUrl('home', 'en', `${BASE_URL}/en/`);
+  addUrl('home', 'fr', `${BASE_URL}/fr/`);
   
   routesConfig.filter(r => r.paths && !Object.values(r.paths).some(p => p.includes(':')) && r.key !== 'home').forEach(route => {
     SUPPORTED_LANGS.forEach(lang => {
@@ -155,35 +142,36 @@ const generateSitemap = () => {
     }
   });
 
-  // Construir el XML
-  const sitemapEntries = [];
+  // --- CORRECCIÓN: Lógica de construcción del XML ---
+  let sitemapEntries = '';
   for (const [key, { lastmod, alternates }] of urlMap.entries()) {
-    const canonicalUrl = alternates['es'] || Object.values(alternates)[0];
     
-    // Añadir x-default si es la página de inicio
-    let alternateLinks = key === 'home' ? `<xhtml:link rel="alternate" hreflang="x-default" href="${BASE_URL}/"/>\n      ` : '';
-    
-    alternateLinks += Object.entries(alternates)
+    // Generar el bloque de xhtml:link una sola vez por grupo de URLs
+    const alternateLinks = Object.entries(alternates)
       .map(([lang, href]) => `<xhtml:link rel="alternate" hreflang="${lang}" href="${href}"/>`)
       .join('\n      ');
-
-    sitemapEntries.push(`
+      
+    const xDefaultLink = key === 'home' ? `<xhtml:link rel="alternate" hreflang="x-default" href="${BASE_URL}/"/>\n      ` : '';
+    
+    // Crear una entrada <url> para CADA idioma
+    for (const loc of Object.values(alternates)) {
+        sitemapEntries += `
   <url>
-    <loc>${canonicalUrl}</loc>
+    <loc>${loc}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${key === 'home' ? '1.0' : '0.8'}</priority>
-    ${alternateLinks}
-  </url>`);
+    ${xDefaultLink}${alternateLinks}
+  </url>`;
+    }
   }
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${sitemapEntries.join('')}
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">${sitemapEntries}
 </urlset>`;
 
-  fs.writeFileSync(SITEMAP_PATH, sitemap);
+  fs.writeFileSync(SITEMAP_PATH, sitemap.trim());
 
   console.log(`✅ Sitemap generado exitosamente en: ${SITEMAP_PATH}`);
 };

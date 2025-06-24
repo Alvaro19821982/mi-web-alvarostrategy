@@ -1,20 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
   <url>
-    <loc>https://alvarostrategy.com/es</loc>
-    <lastmod>2025-06-23</lastmod>
+    <loc>https://alvarostrategy.com/es/</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://alvarostrategy.com/"/>
-      <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es"/>
-      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en"/>
-      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alvarostrategy.com/"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alvarostrategy.com/"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/"/>
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/servicios</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/servicios"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/services"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/services</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/servicios"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/services"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/services</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/servicios"/>
@@ -23,7 +60,25 @@
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/mi-metodo</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/my-method</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/ma-methode</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo"/>
@@ -32,7 +87,25 @@
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/quien-soy</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/quien-soy"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/about-me"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/qui-suis-je"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/about-me</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/quien-soy"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/about-me"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/qui-suis-je"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/qui-suis-je</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/quien-soy"/>
@@ -41,7 +114,25 @@
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/contacto</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/contacto"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/contact"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/contact"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/contact</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/contacto"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/contact"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/contact"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/contact</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/contacto"/>
@@ -50,7 +141,25 @@
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/blog</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/blog</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/blog</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog"/>
@@ -59,34 +168,106 @@
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/servicios/estrategia-digital-integral</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/servicios/estrategia-digital-integral"/>
       <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/services/comprehensive-digital-strategy"/>
-      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services/strategie-digitale-globale"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services/strategie-digitale-integrale"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/services/comprehensive-digital-strategy</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/servicios/estrategia-digital-integral"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/services/comprehensive-digital-strategy"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services/strategie-digitale-integrale"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/services/strategie-digitale-integrale</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/servicios/estrategia-digital-integral"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/services/comprehensive-digital-strategy"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services/strategie-digitale-integrale"/>
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/servicios/consultoria-seo</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/servicios/consultoria-seo"/>
       <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/services/seo-consulting"/>
-      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services/consultation-seo"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services/conseil-seo"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/services/seo-consulting</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/servicios/consultoria-seo"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/services/seo-consulting"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services/conseil-seo"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/services/conseil-seo</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/servicios/consultoria-seo"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/services/seo-consulting"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services/conseil-seo"/>
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/servicios/consultoria-ia</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/servicios/consultoria-ia"/>
       <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/services/ai-consulting"/>
-      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services/consultation-ia"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services/conseil-ia"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/services/ai-consulting</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/servicios/consultoria-ia"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/services/ai-consulting"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services/conseil-ia"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/services/conseil-ia</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/servicios/consultoria-ia"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/services/ai-consulting"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/services/conseil-ia"/>
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/mi-metodo/producto-marca</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/producto-marca"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method/product-brand"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode/produit-marque"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/my-method/product-brand</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/producto-marca"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method/product-brand"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode/produit-marque"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/ma-methode/produit-marque</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/producto-marca"/>
@@ -95,7 +276,25 @@
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/mi-metodo/adquisicion</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/adquisicion"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method/acquisition"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode/acquisition"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/my-method/acquisition</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/adquisicion"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method/acquisition"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode/acquisition"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/ma-methode/acquisition</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/adquisicion"/>
@@ -104,7 +303,25 @@
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/mi-metodo/conversion</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/conversion"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method/conversion"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode/conversion"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/my-method/conversion</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/conversion"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method/conversion"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode/conversion"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/ma-methode/conversion</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/conversion"/>
@@ -113,7 +330,25 @@
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/mi-metodo/progresion</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/progresion"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method/progression"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode/progression"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/my-method/progression</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/progresion"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method/progression"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode/progression"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/ma-methode/progression</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/progresion"/>
@@ -122,7 +357,25 @@
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/mi-metodo/recurrencia</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/recurrencia"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method/recurrence"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode/recurrence"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/my-method/recurrence</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/recurrencia"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method/recurrence"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode/recurrence"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/ma-methode/recurrence</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/recurrencia"/>
@@ -131,7 +384,25 @@
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/mi-metodo/escalabilidad</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/escalabilidad"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method/scalability"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode/scalabilite"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/my-method/scalability</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/escalabilidad"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/my-method/scalability"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/ma-methode/scalabilite"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/ma-methode/scalabilite</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/mi-metodo/escalabilidad"/>
@@ -140,7 +411,7 @@
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/aviso-legal</loc>
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/aviso-legal"/>
@@ -148,25 +419,97 @@
       <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/mentions-legales"/>
   </url>
   <url>
-    <loc>https://alvarostrategy.com/es/politica-de-privacidad</loc>
-    <lastmod>2025-06-23</lastmod>
+    <loc>https://alvarostrategy.com/en/legal-notice</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/politica-de-privacidad"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/aviso-legal"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/legal-notice"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/mentions-legales"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/mentions-legales</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/aviso-legal"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/legal-notice"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/mentions-legales"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/es/politica-privacidad</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/politica-privacidad"/>
       <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/privacy-policy"/>
       <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/politique-de-confidentialite"/>
   </url>
   <url>
-    <loc>https://alvarostrategy.com/es/politica-de-cookies</loc>
-    <lastmod>2025-06-23</lastmod>
+    <loc>https://alvarostrategy.com/en/privacy-policy</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/politica-de-cookies"/>
-      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/cookies-policy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/politica-privacidad"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/privacy-policy"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/politique-de-confidentialite"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/politique-de-confidentialite</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/politica-privacidad"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/privacy-policy"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/politique-de-confidentialite"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/es/politica-cookies</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/politica-cookies"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/cookie-policy"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/politique-de-cookies"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/cookie-policy</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/politica-cookies"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/cookie-policy"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/politique-de-cookies"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/politique-de-cookies</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/politica-cookies"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/cookie-policy"/>
       <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/politique-de-cookies"/>
   </url>
   <url>
     <loc>https://alvarostrategy.com/es/blog/seo-semantico-2025</loc>
+    <lastmod>2024-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/seo-semantico-2025"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/semantic-seo-2025"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/seo-semantique-2025"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/blog/semantic-seo-2025</loc>
+    <lastmod>2024-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/seo-semantico-2025"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/semantic-seo-2025"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/seo-semantique-2025"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/blog/seo-semantique-2025</loc>
     <lastmod>2024-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -184,75 +527,237 @@
       <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/ia-et-automatisation-pme"/>
   </url>
   <url>
-    <loc>https://alvarostrategy.com/es/categoria/seo-avanzado</loc>
-    <lastmod>2025-06-23</lastmod>
+    <loc>https://alvarostrategy.com/en/blog/ai-and-automation-for-smes</loc>
+    <lastmod>2024-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/categoria/seo-avanzado"/>
-      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/category/advanced-seo"/>
-      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/categorie/seo-avance"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/ia-y-automatizacion-pymes"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/ai-and-automation-for-smes"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/ia-et-automatisation-pme"/>
   </url>
   <url>
-    <loc>https://alvarostrategy.com/es/categoria/inteligencia-artificial</loc>
-    <lastmod>2025-06-23</lastmod>
+    <loc>https://alvarostrategy.com/fr/blog/ia-et-automatisation-pme</loc>
+    <lastmod>2024-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/categoria/inteligencia-artificial"/>
-      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/category/artificial-intelligence"/>
-      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/categorie/intelligence-artificielle"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/ia-y-automatizacion-pymes"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/ai-and-automation-for-smes"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/ia-et-automatisation-pme"/>
   </url>
   <url>
-    <loc>https://alvarostrategy.com/es/etiqueta/seo</loc>
-    <lastmod>2025-06-23</lastmod>
+    <loc>https://alvarostrategy.com/es/blog/categoria/seo-avanzado</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/etiqueta/seo"/>
-      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/tag/seo"/>
-      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/tag/seo"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/categoria/seo-avanzado"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/category/advanced-seo"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/categorie/seo-avance"/>
   </url>
   <url>
-    <loc>https://alvarostrategy.com/es/etiqueta/ia</loc>
-    <lastmod>2025-06-23</lastmod>
+    <loc>https://alvarostrategy.com/en/blog/category/advanced-seo</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/etiqueta/ia"/>
-      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/tag/ai"/>
-      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/tag/ia"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/categoria/seo-avanzado"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/category/advanced-seo"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/categorie/seo-avance"/>
   </url>
   <url>
-    <loc>https://alvarostrategy.com/es/etiqueta/estrategia-digital</loc>
-    <lastmod>2025-06-23</lastmod>
+    <loc>https://alvarostrategy.com/fr/blog/categorie/seo-avance</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/etiqueta/estrategia-digital"/>
-      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/tag/digital-strategy"/>
-      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/tag/strategie-digitale"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/categoria/seo-avanzado"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/category/advanced-seo"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/categorie/seo-avance"/>
   </url>
   <url>
-    <loc>https://alvarostrategy.com/es/etiqueta/pymes</loc>
-    <lastmod>2025-06-23</lastmod>
+    <loc>https://alvarostrategy.com/es/blog/categoria/inteligencia-artificial</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/etiqueta/pymes"/>
-      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/tag/smes"/>
-      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/tag/pme"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/categoria/inteligencia-artificial"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/category/artificial-intelligence"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/categorie/intelligence-artificielle"/>
   </url>
   <url>
-    <loc>https://alvarostrategy.com/es/etiqueta/automatizacion</loc>
-    <lastmod>2025-06-23</lastmod>
+    <loc>https://alvarostrategy.com/en/blog/category/artificial-intelligence</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/etiqueta/automatizacion"/>
-      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/tag/automation"/>
-      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/tag/automatisation"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/categoria/inteligencia-artificial"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/category/artificial-intelligence"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/categorie/intelligence-artificielle"/>
   </url>
   <url>
-    <loc>https://alvarostrategy.com/es/etiqueta/productividad</loc>
-    <lastmod>2025-06-23</lastmod>
+    <loc>https://alvarostrategy.com/fr/blog/categorie/intelligence-artificielle</loc>
+    <lastmod>2025-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/etiqueta/productividad"/>
-      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/tag/productivity"/>
-      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/tag/productivite"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/categoria/inteligencia-artificial"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/category/artificial-intelligence"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/categorie/intelligence-artificielle"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/es/blog/etiqueta/seo</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/seo"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/seo"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/seo"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/blog/tag/seo</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/seo"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/seo"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/seo"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/blog/tag/seo</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/seo"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/seo"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/seo"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/es/blog/etiqueta/ia</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/ia"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/ai"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/ia"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/blog/tag/ai</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/ia"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/ai"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/ia"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/blog/tag/ia</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/ia"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/ai"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/ia"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/es/blog/etiqueta/estrategia-digital</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/estrategia-digital"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/digital-strategy"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/strategie-digitale"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/blog/tag/digital-strategy</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/estrategia-digital"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/digital-strategy"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/strategie-digitale"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/blog/tag/strategie-digitale</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/estrategia-digital"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/digital-strategy"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/strategie-digitale"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/es/blog/etiqueta/pymes</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/pymes"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/smes"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/pme"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/blog/tag/smes</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/pymes"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/smes"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/pme"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/blog/tag/pme</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/pymes"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/smes"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/pme"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/es/blog/etiqueta/automatizacion</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/automatizacion"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/automation"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/automatisation"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/blog/tag/automation</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/automatizacion"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/automation"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/automatisation"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/blog/tag/automatisation</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/automatizacion"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/automation"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/automatisation"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/es/blog/etiqueta/productividad</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/productividad"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/productivity"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/productivite"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/en/blog/tag/productivity</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/productividad"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/productivity"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/productivite"/>
+  </url>
+  <url>
+    <loc>https://alvarostrategy.com/fr/blog/tag/productivite</loc>
+    <lastmod>2025-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alvarostrategy.com/es/blog/etiqueta/productividad"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://alvarostrategy.com/en/blog/tag/productivity"/>
+      <xhtml:link rel="alternate" hreflang="fr" href="https://alvarostrategy.com/fr/blog/tag/productivite"/>
   </url>
 </urlset>

@@ -210,10 +210,12 @@ const Index = () => {
 
   return (
     <>
+      {/* CORRECCIÓN: Se añade la prop isHomePage={true} para el manejo del hreflang x-default */}
       <SeoTags
         title={t('meta.title')}
         description={t('meta.description')}
         pathname={location.pathname}
+        isHomePage={true} 
       />
 
       {/* Hero Section */}

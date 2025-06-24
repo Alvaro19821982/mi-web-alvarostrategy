@@ -1,4 +1,4 @@
-// src/components/SeoTags.tsx (Código completo con Canonical y Hreflang)
+// src/components/SeoTags.tsx
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAlternateLinks } from '../context/AlternateLinksContext';
@@ -8,17 +8,15 @@ interface SeoTagsProps {
   description: string;
   pathname: string;
   imageUrl?: string; 
+  isHomePage?: boolean;
 }
 
-const SeoTags: React.FC<SeoTagsProps> = ({ title, description, pathname, imageUrl }) => {
+const SeoTags: React.FC<SeoTagsProps> = ({ title, description, pathname, imageUrl, isHomePage = false }) => {
   const alternateLinks = useAlternateLinks();
   const baseUrl = "https://alvarostrategy.com";
   
-  // MODIFICACIÓN: Construcción de la URL canónica absoluta
-  // Esta es la corrección clave. Nos aseguramos de que siempre sea una URL completa.
   const canonicalUrl = `${baseUrl}${pathname}`;
   
-  // Si no se proporciona una imagen específica, usamos la imagen OpenGraph por defecto.
   const finalImageUrl = imageUrl ? `${baseUrl}${imageUrl}` : `${baseUrl}/temp-opengraph.png`;
 
   return (
@@ -28,7 +26,6 @@ const SeoTags: React.FC<SeoTagsProps> = ({ title, description, pathname, imageUr
       <meta name="description" content={description} />
       
       {/* --- Etiqueta Canónica --- */}
-      {/* MODIFICACIÓN: Añadida la etiqueta canónica autorreferencial y absoluta. */}
       <link rel="canonical" href={canonicalUrl} />
 
       {/* --- Etiquetas Open Graph (para Facebook, LinkedIn, etc.) --- */}
@@ -44,11 +41,15 @@ const SeoTags: React.FC<SeoTagsProps> = ({ title, description, pathname, imageUr
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={finalImageUrl} />
 
-      {/* --- MODIFICACIÓN: Etiquetas hreflang para internacionalización --- */}
-      {/* Este bloque se renderiza dinámicamente si hay versiones alternativas de la página. */}
+      {/* --- Etiquetas hreflang para internacionalización --- */}
+      {/* Renderiza dinámicamente las versiones de idioma que le llegan por contexto */}
       {alternateLinks && Object.entries(alternateLinks).map(([lang, href]) => (
         <link key={lang} rel="alternate" hrefLang={lang} href={`${baseUrl}${href}`} />
       ))}
+      
+      {/* CORRECCIÓN: La lógica de x-default ahora vive en el componente superior (LanguageLayout) */}
+      {/* y se pasa a través del contexto junto con los otros alternateLinks. */}
+      {/* Aquí solo se renderiza si viene en el objeto 'alternateLinks'. */}
     </Helmet>
   );
 };

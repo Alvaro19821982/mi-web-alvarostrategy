@@ -22,8 +22,6 @@ import NotFound from './NotFound';
 import { useSetAlternateLinks } from '../context/AlternateLinksContext';
 import { supportedLngs } from '../i18n';
 import { routesConfig } from '../routes';
-// CORRECCIÓN: Importación añadida
-import { slugify } from '@/lib/utils';
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -227,10 +225,9 @@ const BlogCategoriaPage = () => {
                         {post.tags && post.tags.length > 0 && (
                           <div className="mb-4 flex flex-wrap gap-1.5 sm:gap-2 items-center">
                             <TagIconLucide className="w-3.5 h-3.5 text-gray-400 dark:text-slate-500"/>
-                            {/* CORRECCIÓN: Usar tag.key y tag.name, y slugify para el enlace */}
                             {post.tags.map(tag => (
-                              <Link key={tag.key} to={getPath('blogTag', { tagSlug: slugify(tag.name) })} aria-label={`Ver todos los artículos con la etiqueta ${tag.name}`}>
-                                  <Badge variant="outline" className="text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer">#{tag.name}</Badge>
+                              <Link key={tag} to={getPath('blogTag', { tagSlug: tag.toLowerCase().replace(/\s+/g, '-') })} aria-label={`Ver todos los artículos con la etiqueta ${tag}`}>
+                                  <Badge variant="outline" className="text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer">#{tag}</Badge>
                               </Link>
                             ))}
                           </div>

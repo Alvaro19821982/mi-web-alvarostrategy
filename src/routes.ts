@@ -38,15 +38,17 @@ export const routesConfig = [
   { key: 'contact', component: Contacto, paths: { es: 'contacto', en: 'contact', fr: 'contact' } },
   
   // Blog
+  // CORRECCIÓN: Se ha añadido el prefijo 'blog/' a las rutas de categoría y tag para que coincidan con los archivos de traducción y la lógica de enrutamiento.
   { key: 'blog', component: Blog, paths: { es: 'blog', en: 'blog', fr: 'blog' } },
   { key: 'blogPost', component: BlogPost, paths: { es: 'blog/:slug', en: 'blog/:slug', fr: 'blog/:slug' } },
-  { key: 'blogCategory', component: BlogCategoriaPage, paths: { es: 'categoria/:categoriaSlug', en: 'category/:categoriaSlug', fr: 'categorie/:categoriaSlug' } },
-  { key: 'blogTag', component: BlogTagPage, paths: { es: 'etiqueta/:tagSlug', en: 'tag/:tagSlug', fr: 'tag/:tagSlug' } },
+  { key: 'blogCategory', component: BlogCategoriaPage, paths: { es: 'blog/categoria/:categoriaSlug', en: 'blog/category/:categoriaSlug', fr: 'blog/categorie/:categoriaSlug' } },
+  { key: 'blogTag', component: BlogTagPage, paths: { es: 'blog/etiqueta/:tagSlug', en: 'blog/tag/:tagSlug', fr: 'blog/tag/:tagSlug' } },
 
   // Sub-páginas de Servicios
-  { key: 'service_edi', component: EstrategiaDigitalIntegral, paths: { es: 'servicios/estrategia-digital-integral', en: 'services/comprehensive-digital-strategy', fr: 'services/strategie-digitale-globale' } },
-  { key: 'service_seo', component: ConsultoriaSeo, paths: { es: 'servicios/consultoria-seo', en: 'services/seo-consulting', fr: 'services/consultation-seo' } },
-  { key: 'service_ia', component: ConsultoriaIa, paths: { es: 'servicios/consultoria-ia', en: 'services/ai-consulting', fr: 'services/consultation-ia' } },
+  // CORRECCIÓN: Se ha corregido la ruta en francés para 'service_edi' para que sea más coherente
+  { key: 'service_edi', component: EstrategiaDigitalIntegral, paths: { es: 'servicios/estrategia-digital-integral', en: 'services/comprehensive-digital-strategy', fr: 'services/strategie-digitale-integrale' } },
+  { key: 'service_seo', component: ConsultoriaSeo, paths: { es: 'servicios/consultoria-seo', en: 'services/seo-consulting', fr: 'services/conseil-seo' } },
+  { key: 'service_ia', component: ConsultoriaIa, paths: { es: 'servicios/consultoria-ia', en: 'services/ai-consulting', fr: 'services/conseil-ia' } },
 
   // Sub-páginas de Mi Método
   { key: 'method_brand', component: ProductoMarca, paths: { es: 'mi-metodo/producto-marca', en: 'my-method/product-brand', fr: 'ma-methode/produit-marque' } },
@@ -58,6 +60,7 @@ export const routesConfig = [
   
   // Páginas Legales
   { key: 'legal_notice', component: AvisoLegal, paths: { es: 'aviso-legal', en: 'legal-notice', fr: 'mentions-legales' } },
-  { key: 'privacy_policy', component: PoliticaPrivacidad, paths: { es: 'politica-de-privacidad', en: 'privacy-policy', fr: 'politique-de-confidentialite' } },
-  { key: 'cookies_policy', component: PoliticaCookies, paths: { es: 'politica-de-cookies', en: 'cookies-policy', fr: 'politique-de-cookies' } },
+  // CORRECCIÓN: He unificado las rutas de política de privacidad y cookies para que sean más consistentes.
+  { key: 'privacy_policy', component: PoliticaPrivacidad, paths: { es: 'politica-privacidad', en: 'privacy-policy', fr: 'politique-de-confidentialite' } },
+  { key: 'cookies_policy', component: PoliticaCookies, paths: { es: 'politica-cookies', en: 'cookie-policy', fr: 'politique-de-cookies' } },
 ];
