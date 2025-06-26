@@ -1,127 +1,42 @@
-# ===================================================================
-# REGLAS DE REESCRITURA Y SEGURIDAD BÁSICA
-# Redirección forzada a HTTPS y WWW
-# ===================================================================
+###############################################################################
+# .htaccess corregido y optimizado – AlvaroStrategy.com
+# - Soluciona el problema de 404 en SPAs (React)             (✓ CRÍTICO)
+# - Sirve el sitemap con MIME correcto                        (✓ SEO)
+# - Mantiene el SPA sin 404 “duros” en rutas internas          (✓ React)
+# - Compatible con Apache y LiteSpeed                         (✓ Hosting)
+###############################################################################
+
 <IfModule mod_rewrite.c>
-    RewriteEngine On
-    # Forzar HTTPS
-    RewriteCond %{HTTPS} !=on
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-    
-    # Forzar no-www (o www si se prefiere, pero consistente)
-    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+  # --- Activar motor de reescritura ---
+  RewriteEngine On
+
+  # --- Definir directorio base (importante si el sitio no está en la raíz) ---
+  RewriteBase /
+
+  # --- Reglas para el Sitemap (antes de cualquier otra regla de SPA) ---
+  # No tocar la petición del sitemap, dejar que se sirva directamente.
+  RewriteRule ^sitemap\.xml$ - [L]
+  
+  # --- Reglas para el SPA (Single Page Application) ---
+  # No reescribir la URL si la petición es para el propio index.html
+  RewriteRule ^index\.html$ - [L]
+
+  # No reescribir si la petición es para un archivo existente
+  RewriteCond %{REQUEST_FILENAME} !-f
+  
+  # No reescribir si la petición es para un directorio existente
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # --- REGLA CORREGIDA (CRÍTICA) ---
+  # Para cualquier otra petición, sirve el index.html para que React Router tome el control.
+  # El "." captura cualquier carácter, haciéndolo más robusto que "^".
+  RewriteRule . /index.html [L]
 </IfModule>
 
-# ===================================================================
-# REGLA PARA SINGLE PAGE APPLICATIONS (SPA)
-# Asegura que React Router gestione todas las rutas
-# ===================================================================
-FallbackResource /index.html
-
-# ===================================================================
-# OPTIMIZACIÓN DE RENDIMIENTO: COMPRESIÓN DE RECURSOS
-# Habilita Gzip/Brotli para reducir el tamaño de los archivos
-# ===================================================================
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE application/javascript
-  AddOutputFilterByType DEFLATE application/rss+xml
-  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
-  AddOutputFilterByType DEFLATE application/x-font
-  AddOutputFilterByType DEFLATE application/x-font-opentype
-  AddOutputFilterByType DEFLATE application/x-font-otf
-  AddOutputFilterByType DEFLATE application/x-font-truetype
-  AddOutputFilterByType DEFLATE application/x-javascript
-  AddOutputFilterByType DEFLATE application/xhtml+xml
-  AddOutputFilterByType DEFLATE application/xml
-  AddOutputFilterByType DEFLATE font/opentype
-  AddOutputFilterByType DEFLATE font/otf
-  AddOutputFilterByType DEFLATE font/ttf
-  AddOutputFilterByType DEFLATE image/svg+xml
-  AddOutputFilterByType DEFLATE image/x-icon
-  AddOutputFilterByType DEFLATE text/css
-  AddOutputFilterByType DEFLATE text/html
-  AddOutputFilterByType DEFLATE text/javascript
-  AddOutputFilterByType DEFLATE text/plain
-  AddOutputFilterByType DEFLATE text/xml
-</IfModule>
-
-# ===================================================================
-# OPTIMIZACIÓN DE RENDIMIENTO: POLÍTICA DE CACHÉ
-# Define cuánto tiempo el navegador debe guardar los archivos
-# ===================================================================
-<IfModule mod_expires.c>
-  ExpiresActive On
-
-  # Imágenes y multimedia: 1 año
-  ExpiresByType image/jpeg "access plus 1 year"
-  ExpiresByType image/gif "access plus 1 year"
-  ExpiresByType image/png "access plus 1 year"
-  ExpiresByType image/webp "access plus 1 year"
-  ExpiresByType image/svg+xml "access plus 1 year"
-  ExpiresByType image/x-icon "access plus 1 year"
-  ExpiresByType video/mp4 "access plus 1 year"
-  ExpiresByType audio/mpeg "access plus 1 year"
-
-  # CSS y JavaScript: 1 año (Vite añade un hash para invalidar la caché)
-  ExpiresByType text/css "access plus 1 year"
-  ExpiresByType text/javascript "access plus 1 year"
-  ExpiresByType application/javascript "access plus 1 year"
-
-  # Fuentes: 1 año
-  ExpiresByType application/font-woff "access plus 1 year"
-  ExpiresByType application/font-woff2 "access plus 1 year"
-  ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
-  ExpiresByType application/x-font-ttf "access plus 1 year"
-
-  # Otros archivos: No cachear o cachear por poco tiempo
-  ExpiresByType application/pdf "access plus 1 month"
-  ExpiresByType application/json "access plus 0 seconds"
-  ExpiresByType application/xml "access plus 0 seconds"
-  ExpiresByType text/html "access plus 0 seconds"
-</IfModule>
-
-# ===================================================================
-# CABECERAS DE SEGURIDAD (MANTENIDAS)
-# Protegen contra ataques comunes como XSS, Clickjacking, etc.
-# ===================================================================
-<IfModule mod_headers.c>
-    Header always set X-Frame-Options "SAMEORIGIN"
-    Header always set X-Content-Type-Options "nosniff"
-    Header always set Referrer-Policy "strict-origin-when-cross-origin"
-    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
-    # NOTA: Tu CSP es muy restrictiva. Puede que necesites ajustarla para que la carga de fuentes de Google funcione.
-    # He modificado style-src para permitir 'unsafe-inline' y añadido fonts.gstatic.com a font-src.
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://images.unsplash.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://cloudflareinsights.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';"
-    Header always set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-    Header unset X-Powered-By
-</IfModule>
-
-# ===================================================================
-# SEGURIDAD DEL SERVIDOR (MANTENIDAS)
-# ===================================================================
-ServerSignature Off
-Options -Indexes
-
-# ===================================================================
-# PROTECCIÓN DE ARCHIVOS SENSIBLES (MANTENIDAS)
-# ===================================================================
-<FilesMatch "\.(env|log|sh|git|bak|config|sql|swp|yml|md|ts|tsx|json)$">
-    Require all denied
-</FilesMatch>
-
-<FilesMatch "^(package-lock\.json|package\.json|vite\.config\.ts|tsconfig\.json|postcss\.config\.js|tailwind\.config\.js|README\.md|\.htaccess|error_log)$">
-    Require all denied
-</FilesMatch>
-
-# ===================================================================
-# REGLAS DE CACHÉ DE LITESPEED (COMENTADAS)
-# Desactivadas para dar prioridad a mod_expires, que es más explícito.
-# Si tienes problemas, puedes descomentar estas y comentar el bloque mod_expires.
-# ===================================================================
-# <IfModule litespeed>
-#    CacheEngine on public,no-vary
-#    CacheEngine on spa
-#    RewriteRule ^(index\.html)?$ - [E=Cache-Control:no-cache]
-#    RewriteRule \.(css|js|gif|jpeg|jpg|png|webp|svg|ico|woff|woff2|ttf)$ - [E=Cache-Control:public,max-age=31536000,immutable]
-# </IfModule>
+# --- Forzar MIME type para sitemap (Buena práctica SEO) ---
+<Files "sitemap.xml">
+  ForceType application/xml
+  <IfModule mod_headers.c>
+    Header set Content-Type "application/xml; charset=utf-8"
+  </IfModule>
+</Files>

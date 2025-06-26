@@ -95,6 +95,12 @@ const generateSitemap = () => {
     }
   });
 
+  // ===================================================================
+  // INICIO DE LA SECCIÓN COMENTADA
+  // Se ha eliminado la generación de URLs para categorías y etiquetas
+  // para que no se incluyan en el sitemap, de acuerdo a la estrategia SEO.
+  // ===================================================================
+  /*
   // 3. Páginas de categorías y etiquetas
   const categories = new Map();
   const tags = new Map();
@@ -141,8 +147,12 @@ const generateSitemap = () => {
         });
     }
   });
+  */
+  // ===================================================================
+  // FIN DE LA SECCIÓN COMENTADA
+  // ===================================================================
 
-  // --- CORRECCIÓN: Lógica de construcción del XML ---
+  // --- Lógica de construcción del XML (sin cambios) ---
   let sitemapEntries = '';
   for (const [key, { lastmod, alternates }] of urlMap.entries()) {
     
